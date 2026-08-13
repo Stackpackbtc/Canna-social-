@@ -6,28 +6,10 @@ import { supabase } from '@/lib/supabase'
 type Review = { id:string; display_name:string; rating:number; review:string; created_at:string }
 
 export default function CommunityReviews(){
-  const [reviews,setReviews]=useState<Review[]>([])
-  const [open,setOpen]=useState(false)
-  const [name,setName]=useState('')
-  const [email,setEmail]=useState('')
-  const [rating,setRating]=useState(5)
-  const [text,setText]=useState('')
-  const [busy,setBusy]=useState(false)
-  const [message,setMessage]=useState('')
-
-  const load=async()=>{
-    const {data}=await supabase.from('canna_social_reviews').select('id,display_name,rating,review,created_at').eq('approved',true).order('created_at',{ascending:false}).limit(12)
-    setReviews((data as Review[])||[])
-  }
+  const [reviews,setReviews]=useState<Review[]>([]),[open,setOpen]=useState(false),[name,setName]=useState(''),[email,setEmail]=useState(''),[rating,setRating]=useState(5),[text,setText]=useState(''),[busy,setBusy]=useState(false),[message,setMessage]=useState('')
+  const load=async()=>{const {data}=await supabase.from('canna_social_public_reviews').select('id,display_name,rating,review,created_at').order('created_at',{ascending:false}).limit(12);setReviews((data as Review[])||[])}
   useEffect(()=>{load()},[])
-
-  const submit=async(e:FormEvent)=>{
-    e.preventDefault(); setBusy(true); setMessage('')
-    const {error}=await supabase.from('canna_social_reviews').insert({display_name:name.trim(),email:email.trim().toLowerCase(),rating,review:text.trim()})
-    if(error){setMessage(error.message)}else{setName('');setEmail('');setRating(5);setText('');setMessage('Review posted — thank you for helping shape Canna Social.');setOpen(false);await load()}
-    setBusy(false)
-  }
-
+  const submit=async(e:FormEvent)=>{e.preventDefault();setBusy(true);setMessage('');const {error}=await supabase.from('canna_social_reviews').insert({display_name:name.trim(),email:email.trim().toLowerCase(),rating,review:text.trim()});if(error){setMessage(error.message)}else{setName('');setEmail('');setRating(5);setText('');setMessage('Review posted — thank you for helping shape Canna Social.');setOpen(false);await load()}setBusy(false)}
   return <section className="community-reviews" aria-label="Canna Social community reviews">
     <div className="community-reviews-head"><div><p className="eyebrow">THE COMMUNITY</p><h2>What people think.</h2><p className="community-sub">Real feedback from the people using Canna Social.</p></div><button className="review-write" onClick={()=>setOpen(true)}>★ Leave a review</button></div>
     <div className="community-summary"><strong>{reviews.length ? (reviews.reduce((a,r)=>a+r.rating,0)/reviews.length).toFixed(1) : '5.0'}</strong><span>★★★★★</span><small>{reviews.length} community reviews</small></div>
