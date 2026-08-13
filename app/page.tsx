@@ -1,77 +1,56 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
+const categories = ['Strains','Flower','Pre-Rolls','Edibles','Concentrates','Brands','Dispensaries','Growers']
 const strains = [
-  { name: 'Super Lemon Haze', type: 'Sativa', score: 94, votes: 1842, terps: 'Limonene · Caryophyllene', note: 'Bright citrus · energetic' },
-  { name: 'Jelly Donutz', type: 'Hybrid', score: 92, votes: 1618, terps: 'Caryophyllene · Limonene', note: 'Sweet gas · balanced' },
-  { name: 'Motor Breath', type: 'Indica', score: 89, votes: 1294, terps: 'Myrcene · Caryophyllene', note: 'Gassy · heavy' },
+  { name: 'Pink Runtz', brand: "Gibby’s Craft Cannabis", type: 'Hybrid', score: 92, votes: 1284, tag: 'Canna World Review', tone: 'pink', note: 'Sweet candy profile · fruity aroma · balanced hybrid' },
+  { name: 'Root Beer Gummies', brand: 'Buzzy', type: 'Edible', score: 90, votes: 977, tag: 'Canna World Review', tone: 'gold', note: 'Root beer flavor · 5mg THC per serving' },
+  { name: 'Pink Runtz', brand: 'SPARQ Cannabis Co.', type: 'Hybrid', score: 91, votes: 1108, tag: 'Canna World Review', tone: 'magenta', note: 'Sweet candy · fruity aroma · smooth smoke' },
+  { name: 'Super Lemon Haze', brand: 'Gibby’s', type: 'Sativa', score: 94, votes: 1842, tag: 'Strain Review', tone: 'lime', note: 'Bright citrus · terp-forward · energetic profile' },
 ]
 
-const polls = [
-  { q: 'Best cannabis product category right now?', options: ['Flower', 'Pre-Rolls', 'Edibles', 'Concentrates'], votes: [42, 31, 17, 10] },
-  { q: 'What matters most when you pick a strain?', options: ['Flavor', 'Effects', 'Terpenes', 'Potency'], votes: [29, 38, 21, 12] },
-]
+const polls: Record<string, { title: string; options: string[] }> = {
+  Strains: { title: 'Which strain deserves the crown?', options: ['Pink Runtz','Super Lemon Haze','Jelly Donutz','Motor Breath'] },
+  Flower: { title: 'Who has the best flower right now?', options: ['Small Batch','Craft Growers','Local Brands','Big Names'] },
+  'Pre-Rolls': { title: 'Best pre-roll experience?', options: ['Infused','Full Flower','Hand Rolled','Mini Pre-Rolls'] },
+  Edibles: { title: 'Best edible format?', options: ['Gummies','Chocolate','Drinks','Baked'] },
+  Concentrates: { title: 'What makes a great concentrate?', options: ['Flavor','Texture','Potency','Clean Finish'] },
+  Brands: { title: 'What should a cannabis brand be known for?', options: ['Quality','Consistency','Innovation','Community'] },
+  Dispensaries: { title: 'What matters most at a dispensary?', options: ['Selection','Staff','Price','Experience'] },
+  Growers: { title: 'What makes a grower stand out?', options: ['Craft','Genetics','Consistency','Sustainability'] },
+}
 
 export default function Home() {
-  const [selected, setSelected] = useState<Record<string, number>>({})
   const [ageVerified, setAgeVerified] = useState(false)
-  const [activeNav, setActiveNav] = useState('Home')
-  const [liked, setLiked] = useState<number[]>([])
-  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('Strains')
+  const [votes, setVotes] = useState<Record<string, string>>({})
+  const [showCard, setShowCard] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState({ name: '', email: '', age: '', favorite: '', strain: '', role: '', why: '', agree: false })
 
-  const filtered = useMemo(() => strains.filter(s => s.name.toLowerCase().includes(search.toLowerCase())), [search])
+  const vote = (option: string) => setVotes(v => ({ ...v, [category]: option }))
+  const update = (key: string, value: string | boolean) => setForm(f => ({ ...f, [key]: value }))
 
-  if (!ageVerified) return (
-    <main className="gate">
-      <div className="gate-card">
-        <div className="leaf-mark">✦</div>
-        <p className="eyebrow">CANNA SOCIAL</p>
-        <h1>THE PEOPLE’S<br /><span>CANNABIS PLATFORM.</span></h1>
-        <p className="muted">A community for strain discovery, public voting, reviews, culture and cannabis education.</p>
-        <div className="gate-actions"><button onClick={() => setAgeVerified(true)}>I’m 21+ — Enter</button><span>For adults of legal age only.</span></div>
-      </div>
-    </main>
-  )
+  if (!ageVerified) return <main className="gate"><div className="gate-card"><div className="leaf-mark">✦</div><p className="eyebrow">CANNA SOCIAL</p><h1>THE PEOPLE’S<br /><span>CANNABIS PLATFORM.</span></h1><p className="muted">Reviews. Rankings. Public votes. Cannabis culture. Built around the community.</p><div className="gate-actions"><button onClick={() => setAgeVerified(true)}>I’m 21+ — Enter Canna Social</button><span>Adults of legal age only. Information is not medical advice.</span></div></div></main>
 
-  return (
-    <main>
-      <nav className="nav shell">
-        <button className="brand" onClick={() => setActiveNav('Home')}><span>✦</span> CANNA SOCIAL</button>
-        <div className="nav-links">{['Home','Strains','Votes','Feed','Learn'].map(item => <button key={item} className={activeNav === item ? 'active' : ''} onClick={() => setActiveNav(item)}>{item}</button>)}</div>
-        <button className="profile" onClick={() => setActiveNav('Profile')}>CS</button>
-      </nav>
+  return <main>
+    <nav className="nav shell"><button className="brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><span>✦</span> CANNA SOCIAL</button><div className="nav-links">{['Home','Reviews','Votes','Community','Learn'].map(x => <a key={x} href={x === 'Home' ? '#' : `#${x.toLowerCase()}`}>{x}</a>)}</div><button className="profile" onClick={() => setShowCard(true)}>CS</button></nav>
 
-      <section className="hero shell">
-        <div>
-          <p className="eyebrow">THE PEOPLE’S CANNABIS PLATFORM</p>
-          <h1>What’s the<br /><span>best strain?</span></h1>
-          <p className="hero-copy">No gatekeepers. No paid rankings. Just the cannabis community deciding what deserves the crown.</p>
-          <div className="hero-actions"><button className="primary" onClick={() => document.getElementById('vote')?.scrollIntoView({ behavior: 'smooth' })}>Vote on strains →</button><button className="ghost" onClick={() => setActiveNav('Strains')}>Explore strains</button></div>
-        </div>
-        <div className="hero-orb"><div className="orb-inner"><span>LIVE</span><strong>#01</strong><small>COMMUNITY RANKED</small></div></div>
-      </section>
+    <section className="hero shell"><div><p className="eyebrow">CANNA SOCIAL × CANNA WORLD REVIEWS</p><h1>The community<br /><span>decides.</span></h1><p className="hero-copy">We review the flower, pre-rolls, edibles and brands people are actually talking about — then put the power in the public’s hands.</p><div className="hero-actions"><button className="primary" onClick={() => document.getElementById('votes')?.scrollIntoView({ behavior: 'smooth' })}>Cast a vote →</button><button className="ghost" onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}>See our reviews</button></div></div><div className="hero-orb"><div className="orb-inner"><span>LIVE RANKING</span><strong>#01</strong><small>PUBLICLY VOTED</small></div></div></section>
 
-      <section className="ticker"><div>● LIVE COMMUNITY VOTES</div><div>● STRAIN REVIEWS</div><div>● CANNABIS CULTURE</div><div>● NO PAID RANKINGS</div></section>
+    <section className="ticker"><div>● REAL REVIEWS</div><div>● PUBLIC VOTING</div><div>● CANNA CULTURE</div><div>● COMMUNITY POWERED</div><div>● 21+ ONLY</div></section>
 
-      <section className="shell section" id="vote">
-        <div className="section-head"><div><p className="eyebrow">COMMUNITY RANKINGS</p><h2>Strain of the Week</h2></div><span className="live-pill">● LIVE</span></div>
-        <div className="strain-grid">
-          {filtered.map((s, i) => <article className={'strain-card ' + (i === 0 ? 'featured' : '')} key={s.name}>
-            <div className="strain-image"><span>{i === 0 ? '01' : `0${i + 1}`}</span><b>{s.type}</b></div>
-            <div className="strain-body"><div className="row"><div><p className="tiny">#{i + 1} COMMUNITY RANK</p><h3>{s.name}</h3></div><strong className="score">{s.score}<small>/100</small></strong></div><p className="note">{s.note}</p><p className="terps">{s.terps}</p><div className="vote-bar"><span style={{ width: `${s.score}%` }} /></div><div className="row"><span className="muted small">{s.votes.toLocaleString()} votes</span><button className="vote-btn" onClick={() => setSelected({ ...selected, [s.name]: (selected[s.name] || 0) + 1 })}>{selected[s.name] ? 'Voted ✓' : 'Vote'}</button></div></div>
-          </article>)}
-        </div>
-      </section>
+    <section className="shell section" id="reviews"><div className="section-head"><div><p className="eyebrow">CANNABIS REVIEW ARCHIVE</p><h2>Our Reviews</h2></div><span className="live-pill">CANNA WORLD REVIEWS</span></div><p className="section-intro">You’ve seen the reviews. Now put them on the public scoreboard.</p><div className="review-grid">{strains.map((s, i) => <article className={`review-card ${s.tone}`} key={`${s.brand}-${i}`}><div className="review-art"><span className="art-label">{s.tag}</span><strong>{s.name}</strong><small>{s.brand}</small><div className="art-glow" /></div><div className="review-body"><div className="row"><div><p className="tiny">{s.type} · COMMUNITY REVIEW</p><h3>{s.brand}</h3></div><strong className="score">{s.score}<small>/10</small></strong></div><p className="note">{s.note}</p><div className="review-meta"><span>★ ★ ★ ★ ★</span><span>{s.votes.toLocaleString()} public votes</span></div><button className="card-link" onClick={() => document.getElementById('votes')?.scrollIntoView({ behavior: 'smooth' })}>Vote on this review →</button></div></article>)}</div></section>
 
-      <section className="shell section two-col">
-        <div><div className="section-head"><div><p className="eyebrow">PUBLIC OPINION</p><h2>Canna Votes</h2></div></div>{polls.map((poll, pi) => <article className="poll" key={poll.q}><h3>{poll.q}</h3>{poll.options.map((option, oi) => <button className="poll-option" key={option} onClick={() => setSelected({ ...selected, [`poll-${pi}`]: oi })}><span>{option}</span><span>{poll.votes[oi]}%</span></button>)}</article>)}</div>
-        <aside className="feed-panel"><p className="eyebrow">CANNA FEED</p><h2>What the community is saying.</h2><div className="post"><div className="avatar">JP</div><div><b>@jordanpacks</b><p>Jelly Donutz is having a serious week. Flavor is crazy.</p><span>♥ 184 · 26 comments</span></div><button onClick={() => setLiked(liked.includes(1) ? liked.filter(x => x !== 1) : [...liked, 1])}>{liked.includes(1) ? '♥' : '♡'}</button></div><div className="post"><div className="avatar">MC</div><div><b>@marycanna</b><p>What strain are y’all taking into the weekend?</p><span>♥ 91 · 18 comments</span></div><button onClick={() => setLiked(liked.includes(2) ? liked.filter(x => x !== 2) : [...liked, 2])}>{liked.includes(2) ? '♥' : '♡'}</button></div><button className="wide-ghost" onClick={() => setActiveNav('Feed')}>Open Canna Feed →</button></aside>
-      </section>
+    <section className="vote-zone" id="votes"><div className="shell"><div className="section-head"><div><p className="eyebrow">PUBLIC OPINION</p><h2>Canna Votes</h2></div><span className="live-pill">● LIVE</span></div><div className="category-tabs">{categories.map(c => <button key={c} className={category === c ? 'selected' : ''} onClick={() => setCategory(c)}>{c}</button>)}</div><div className="vote-layout"><div className="poll"><p className="tiny">CATEGORY · {category.toUpperCase()}</p><h3>{polls[category].title}</h3>{polls[category].options.map((o, i) => <button className={`poll-option ${votes[category] === o ? 'chosen' : ''}`} key={o} onClick={() => vote(o)}><span><b>{String.fromCharCode(65 + i)}</b>{o}</span><span>{votes[category] === o ? '✓ VOTED' : 'VOTE'}</span></button>)}<p className="poll-foot">Your vote helps shape the community ranking. One vote per category per community member.</p></div><div className="leaderboard"><p className="eyebrow">CURRENT SIGNAL</p><h3>{category} is community driven.</h3><div className="bars">{polls[category].options.map((o, i) => <div key={o}><div className="bar-label"><span>{o}</span><span>{[42,28,19,11][i]}%</span></div><div className="bar"><span style={{ width: `${[42,28,19,11][i]}%` }} /></div></div>)}</div></div></div></div></section>
 
-      <section className="learn shell"><div><p className="eyebrow">CANNA SOCIAL MEDIA</p><h2>More than a ranking.<br />Build the cannabis knowledge base.</h2></div><div className="learn-cards"><div><span>01</span><h3>Learn</h3><p>Strain profiles, terpene guides, effects and cannabis education.</p></div><div><span>02</span><h3>Review</h3><p>Share honest community reviews and discover what people actually think.</p></div><div><span>03</span><h3>Connect</h3><p>Follow people, brands and conversations shaping cannabis culture.</p></div></div></section>
+    <section className="shell section card-banner" id="community"><div><p className="eyebrow">JOIN THE INNER CIRCLE</p><h2>Get your<br /><span>Canna Social Card.</span></h2><p>Fill out the intake. Tell us what you’re into. Leave your email. We’ll use it to send your card details and eligible community perks, including offers from participating partners such as Comm Ave Canna.</p><button className="primary" onClick={() => { setSubmitted(false); setShowCard(true) }}>Apply for your card →</button></div><div className="social-card"><div><span>CANNA SOCIAL</span><b>CS</b></div><strong>COMMUNITY<br />MEMBER</strong><small>YOUR VOICE. YOUR VOTE. YOUR CULTURE.</small></div></section>
 
-      <footer className="footer shell"><div><b>✦ CANNA SOCIAL</b><p>The people’s cannabis platform.</p></div><div className="footer-note">Community content is informational and not medical advice. Cannabis laws vary by location. Adults of legal age only.</div></footer>
-    </main>
-  )
+    <section className="learn shell" id="learn"><div><p className="eyebrow">CANNA SOCIAL MEDIA</p><h2>Not just a feed.<br />A cannabis knowledge base.</h2></div><div className="learn-cards"><div><span>01</span><h3>Review</h3><p>Real-world product and strain reviews from Canna World Reviews.</p></div><div><span>02</span><h3>Vote</h3><p>Publicly rank categories, brands, products and strains.</p></div><div><span>03</span><h3>Connect</h3><p>Meet the people, growers, reviewers and brands shaping the culture.</p></div></div></section>
+
+    <footer className="footer shell"><div><b>✦ CANNA SOCIAL</b><p>The people’s cannabis platform.</p></div><div className="footer-note">Community content is informational and not medical advice. Cannabis laws and age requirements vary by location. Adults of legal age only.</div></footer>
+
+    {showCard && <div className="modal-backdrop" onClick={() => setShowCard(false)}><div className="modal" onClick={e => e.stopPropagation()}><button className="close" onClick={() => setShowCard(false)}>×</button>{submitted ? <div className="success"><span>✓</span><h2>Application received.</h2><p>We’ve got your answers. Canna Social can use your email to send card details and eligible partner perks.</p><button className="primary" onClick={() => setShowCard(false)}>Back to Canna Social</button></div> : <><p className="eyebrow">CANNA SOCIAL CARD INTAKE</p><h2>Apply for membership.</h2><p className="muted">A short community intake — not a purchase form.</p><form onSubmit={e => { e.preventDefault(); if (form.agree) setSubmitted(true) }}><div className="form-grid"><label>Full name<input required value={form.name} onChange={e => update('name', e.target.value)} placeholder="Your name" /></label><label>Email<input required type="email" value={form.email} onChange={e => update('email', e.target.value)} placeholder="you@email.com" /></label><label>Age<input required type="number" min="21" value={form.age} onChange={e => update('age', e.target.value)} placeholder="21+" /></label><label>Favorite category<select required value={form.favorite} onChange={e => update('favorite', e.target.value)}><option value="">Choose one</option>{categories.map(c => <option key={c}>{c}</option>)}</select></label><label>Favorite strain / product<input value={form.strain} onChange={e => update('strain', e.target.value)} placeholder="Tell us your pick" /></label><label>Community role<select value={form.role} onChange={e => update('role', e.target.value)}><option value="">Choose one</option><option>Reviewer</option><option>Consumer</option><option>Grower</option><option>Brand</option><option>Industry / Media</option></select></label></div><label>What do you want Canna Social to become?<textarea rows={3} value={form.why} onChange={e => update('why', e.target.value)} placeholder="Your answer..." /></label><label className="check"><input type="checkbox" required checked={form.agree} onChange={e => update('agree', e.target.checked)} /> I confirm I am 21+ and agree to receive Canna Social membership information and eligible partner offers by email.</label><button className="primary wide" type="submit">Submit Canna Social Card Application →</button></form></>}</div></div>}
+  </main>
 }
