@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import './upgrade.css'
+import './review-images.css'
 
 export const metadata: Metadata = {
   title: 'Canna Social — The People’s Cannabis Platform',
