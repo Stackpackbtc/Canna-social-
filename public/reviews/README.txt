@@ -1,1 +1,0 @@
-Review artwork files are stored in this folder. Canna Social review gallery.
