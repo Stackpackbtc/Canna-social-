@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import './upgrade.css'
 import './review-images.css'
+import './community-reviews.css'
+import CommunityReviews from '@/components/community-reviews'
 
 export const metadata: Metadata = {
   title: 'Canna Social — The People’s Cannabis Platform',
@@ -9,5 +11,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>
+  return <html lang="en"><body>{children}<CommunityReviews /></body></html>
 }
