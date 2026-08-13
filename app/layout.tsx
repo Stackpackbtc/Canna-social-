@@ -3,6 +3,7 @@ import './globals.css'
 import './upgrade.css'
 import './review-images.css'
 import './community-reviews.css'
+import './admin/admin.css'
 import CommunityReviews from '@/components/community-reviews'
 
 export const metadata: Metadata = {
