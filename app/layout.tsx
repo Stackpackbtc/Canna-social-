@@ -7,10 +7,11 @@ import './admin/admin.css'
 import './brand-partners.css'
 import './theme.css'
 import './live-votes.css'
+import './strain-library.css'
 import CommunityReviews from '@/components/community-reviews'
 import BrandPartners from '@/components/brand-partners'
 import ThemeToggle from '@/components/theme-toggle'
 import LiveVotes from '@/components/live-votes'
-
+import StrainLibrary from '@/components/strain-library'
 export const metadata: Metadata = { title: 'Canna Social — The People’s Cannabis Platform', description: 'Discover, vote, review, and connect around cannabis culture and strain knowledge.' }
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}<LiveVotes /><CommunityReviews /><BrandPartners /><ThemeToggle /></body></html> }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}<LiveVotes /><StrainLibrary /><CommunityReviews /><BrandPartners /><ThemeToggle /></body></html> }
