@@ -1,0 +1,2 @@
+'use client'
+export default function CannaBranding(){return <><div className="canna-brand-glow" aria-hidden="true"><span className="canna-brand-star">✦</span><span className="canna-brand-word"><b>CANNA</b><strong>SOCIAL</strong></span></div><div className="canna-watermark" aria-hidden="true"><span>✦</span> CANNA SOCIAL</div><div className="canna-tagline">ONE PLANT <i>✦</i> ONE COMMUNITY <i>✦</i> ONE CULTURE <i>✦</i> CANNA SOCIAL</div></>}
