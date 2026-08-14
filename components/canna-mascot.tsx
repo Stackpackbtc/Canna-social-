@@ -1,3 +1,0 @@
-'use client'
-import {useState} from 'react'
-export default function CannaMascot(){const [wave,setWave]=useState(false);return <div className={`canna-mascot ${wave?'wave':''}`} onClick={()=>{setWave(true);setTimeout(()=>setWave(false),800)}} role="button" tabIndex={0} aria-label="Canna Social mascot"><div className="mascot-glow"/><div className="mascot-head"><div className="mascot-leaf">✦</div><div className="mascot-eyes"><i/><i/></div><div className="mascot-smile">⌣</div></div><div className="mascot-body"><span>CANNA</span><b>SOCIAL</b></div><div className="mascot-arm left"/><div className="mascot-arm right"/><div className="mascot-shadow"/><small>MEET CANNA</small></div>}
