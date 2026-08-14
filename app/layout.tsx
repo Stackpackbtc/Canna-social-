@@ -14,6 +14,7 @@ import './canna-branding.css'
 import './layout-polish.css'
 import './mascot-inline.css'
 import './gas-pass.css'
+import './canna-education.css'
 import CommunityReviews from '@/components/community-reviews'
 import BrandPartners from '@/components/brand-partners'
 import ThemeToggle from '@/components/theme-toggle'
@@ -22,5 +23,6 @@ import StrainLibrary from '@/components/strain-library'
 import CannaSocialCard from '@/components/canna-social-card'
 import CannaBranding from '@/components/canna-branding'
 import CannaMascot from '@/components/canna-mascot'
+import CannaEducation from '@/components/canna-education'
 export const metadata: Metadata = { title: 'Canna Social — The People’s Cannabis Platform', description: 'Discover, vote, review, and connect around cannabis culture and strain knowledge.' }
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaSocialCard /><CommunityReviews /><BrandPartners /><CannaMascot /><ThemeToggle /></body></html> }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body><CannaBranding /><CannaEducation />{children}<LiveVotes /><StrainLibrary /><CannaSocialCard /><CommunityReviews /><BrandPartners /><CannaMascot /><ThemeToggle /></body></html> }
