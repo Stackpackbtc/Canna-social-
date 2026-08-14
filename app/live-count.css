@@ -1,0 +1,1 @@
+.live-count{display:flex!important;align-items:center;gap:5px;color:#8f9a8b!important}.live-count i{width:6px;height:6px;border-radius:50%;background:#d9ff64;box-shadow:0 0 10px #d9ff64;animation:livePulse 1.2s ease-in-out infinite;flex:none}@keyframes livePulse{0%,100%{opacity:.45;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
