@@ -5,8 +5,10 @@ import './review-images.css'
 import './community-reviews.css'
 import './admin/admin.css'
 import './brand-partners.css'
+import './theme.css'
 import CommunityReviews from '@/components/community-reviews'
 import BrandPartners from '@/components/brand-partners'
+import ThemeToggle from '@/components/theme-toggle'
 
 export const metadata: Metadata = {
   title: 'Canna Social — The People’s Cannabis Platform',
@@ -14,5 +16,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}<CommunityReviews /><BrandPartners /></body></html>
+  return <html lang="en"><body>{children}<CommunityReviews /><BrandPartners /><ThemeToggle /></body></html>
 }
