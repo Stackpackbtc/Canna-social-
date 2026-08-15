@@ -1,0 +1,104 @@
+/* Canna Social — desktop Strain Library optimization */
+@media (min-width:1101px){
+  .strain-library{
+    grid-template-columns:250px minmax(0,1fr);
+    width:min(1480px,calc(100vw - 64px));
+    margin:42px auto;
+    border-radius:28px;
+    box-shadow:0 34px 110px rgba(0,0,0,.52),0 0 70px rgba(255,83,139,.055);
+  }
+  .strain-sidebar{padding:28px 16px;border-right-color:#2b2226}
+  .side-brand{padding:21px 15px;border-radius:18px}
+  .side-logo{width:60px;height:60px;margin-bottom:13px;font-size:31px}
+  .strain-sidebar nav{margin:24px 0;gap:5px}
+  .strain-sidebar nav a{padding:11px 12px;font-size:10px}
+  .side-stats{padding:14px;gap:13px}
+
+  .strain-main{
+    padding:34px 38px 44px;
+    background:
+      radial-gradient(circle at 82% 0,rgba(255,42,99,.11),transparent 30%),
+      radial-gradient(circle at 15% 18%,rgba(255,122,24,.055),transparent 24%),
+      #080708;
+  }
+  .library-brand-lockup{margin-bottom:22px;gap:15px}
+  .library-brand-mark{width:62px;height:62px;flex-basis:62px;border-radius:18px}
+  .library-brand-mark:before{font-size:34px}
+  .library-brand-copy b{font-size:9px}
+  .library-brand-copy strong{font-size:20px}
+  .library-brand-copy span{font-size:8px}
+
+  .strain-library-head{margin-bottom:22px;align-items:center}
+  .strain-library-head h2{font-size:58px}
+  .library-subtitle{font-size:12px;max-width:650px}
+  .library-count{min-width:170px;padding:14px 17px}
+  .library-count strong{font-size:28px}
+
+  .featured-strain{
+    grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);
+    min-height:300px;
+    margin-bottom:22px;
+    border-radius:20px;
+    border-color:#38282f;
+    box-shadow:0 20px 50px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.035);
+  }
+  .featured-image{height:300px}
+  .featured-copy{padding:30px 34px}
+  .featured-copy h3{font-size:38px}
+  .featured-score strong{font-size:38px}
+  .featured-copy>p:not(.tiny){font-size:10px;max-width:500px}
+
+  .strain-controls{
+    grid-template-columns:minmax(300px,1.7fr) minmax(300px,1.25fr) 145px;
+    gap:11px;
+    margin:18px 0 10px;
+  }
+  .strain-search{height:44px;padding:0 13px}
+  .strain-search input{font-size:10px}
+  .type-chips{gap:6px}
+  .type-chips button,.strain-controls select{padding:10px 12px;font-size:9px}
+  .strain-controls select{height:44px}
+  .library-toolbar{margin:10px 2px 13px;font-size:8px}
+  .library-toolbar strong{font-size:11px}
+
+  .library-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  .library-card{border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+  .library-card:hover{transform:translateY(-5px);box-shadow:0 22px 45px rgba(0,0,0,.42),0 0 26px rgba(255,30,95,.09)}
+  .strain-photo{height:190px}
+  .card-brand{top:10px;left:10px;padding:6px 8px;font-size:7px}
+  .rank-badge{top:10px;right:10px;padding:5px 7px;font-size:7px}
+  .photo-overlay{left:12px;right:12px;bottom:11px}
+  .photo-overlay b{font-size:15px}
+  .photo-overlay small{font-size:7px}
+  .photo-overlay span{font-size:7px}
+  .library-body{padding:11px 12px 12px}
+  .score strong{width:34px;height:34px;font-size:10px}
+  .score span b{font-size:7px}
+  .score span small{font-size:7px}
+  .library-vote{padding:8px 10px;font-size:7px}
+  .card-links{margin-top:9px}
+  .card-links button{font-size:8px}
+
+  .strain-preview{width:min(900px,calc(100vw - 80px));max-height:min(650px,calc(100vh - 70px));grid-template-columns:420px minmax(0,1fr);border-radius:24px}
+  .strain-preview-image{min-height:520px}
+  .strain-preview-content{padding:40px 42px}
+  .strain-preview-content h3{font-size:38px}
+  .strain-preview-description{font-size:11px;line-height:1.7}
+}
+
+@media (min-width:1500px){
+  .strain-library{width:min(1580px,calc(100vw - 80px));grid-template-columns:270px minmax(0,1fr)}
+  .strain-main{padding-left:44px;padding-right:44px}
+  .library-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+  .strain-photo{height:205px}
+}
+
+@media (min-width:1101px) and (max-width:1250px){
+  .strain-library{width:calc(100vw - 40px);grid-template-columns:225px minmax(0,1fr)}
+  .strain-main{padding-left:28px;padding-right:28px}
+  .library-grid{gap:10px}
+  .strain-photo{height:175px}
+  .featured-strain{grid-template-columns:1fr 1fr}
+  .featured-copy{padding:24px}
+  .featured-copy h3{font-size:32px}
+}
