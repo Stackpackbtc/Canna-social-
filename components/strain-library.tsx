@@ -5,12 +5,14 @@ import { newStrains } from '@/data/new-strains'
 
 type Strain = readonly [string, string, string, string, string, string, string?]
 
+// Use original/high-resolution Wikimedia files so the modal never enlarges a tiny thumbnail.
+// These are reference cannabis-flower photos unless a strain has a dedicated Canna Social/brand asset.
 const strainImages = [
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Colors%20Macro.jpg',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20macro.JPG',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Macro%20cannabis%20bud.jpg',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20bloom.JPG',
-  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20flowering.jpg',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20flower.jpg',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Grapefruit%20(16540499793).jpg',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20OG%20Kush%20(18458035712).jpg',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Holy%20Grail%20Kush%20(28209045193).jpg',
+  'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Closeup%2002.jpg',
 ]
 
 const baseStrains: Strain[] = [
@@ -37,6 +39,11 @@ const strains: Strain[] = [...baseStrains, ...expandedStrains.filter((strain) =>
 
 const strainBrands: Record<string,string> = {
   'Black Cherry Gelato': "Gibby’s Craft Cannabis",
+}
+
+const dedicatedImages: Record<string,string> = {
+  // The exact uploaded Gibby's promotional artwork is not a repository asset, so use a high-resolution flower reference rather than a blurry generated thumbnail.
+  'Black Cherry Gelato': 'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Grapefruit%20(16540499793).jpg',
 }
 
 const descriptions: Record<string,string> = {
@@ -98,7 +105,7 @@ export default function StrainLibrary(){
   }, [query,type,sort])
 
   const getImage = (strain: Strain, index: number) => {
-    if (strain[0] === 'Black Cherry Gelato') return '/black-cherry-gelato-gibbys.svg'
+    if (dedicatedImages[strain[0]]) return dedicatedImages[strain[0]]
     return strain[6] || strainImages[index % strainImages.length]
   }
 
@@ -184,7 +191,7 @@ export default function StrainLibrary(){
             <div className="strain-detail-block"><b>FLAVOR / PROFILE</b><p>{flavorNotes}</p></div>
             <p className="strain-preview-description">{descriptions[name]||`Canna Social profile for ${name}. This listing includes the available strain information and is open for community discovery and voting. Profile notes: ${profile}.`}</p>
             <div className="strain-preview-actions"><button type="button" className="library-vote" onClick={()=>vote(name)}>{voted===name?'✓ VOTED':'VOTE NOW'}</button><button type="button" className="preview-secondary" onClick={()=>setSelected(null)}>CLOSE</button></div>
-            <small className="preview-disclaimer">Community reference information. Potency and characteristics can vary by producer and batch.</small>
+            <small className="preview-disclaimer">Community reference information. Potency and characteristics can vary by producer and batch. Flower photos are reference images unless labeled as a dedicated brand asset.</small>
           </div>
         </div>
       </div>
