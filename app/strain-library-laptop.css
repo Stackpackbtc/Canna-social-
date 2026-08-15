@@ -1,0 +1,79 @@
+/* Canna Social — Chromebook / laptop Strain Library refinement */
+@media (min-width:900px){
+  .strain-library{
+    width:min(1280px,calc(100vw - 40px));
+    grid-template-columns:220px minmax(0,1fr);
+    margin:28px auto 44px;
+    border-radius:22px;
+    box-shadow:0 24px 80px rgba(0,0,0,.48),0 0 45px rgba(255,61,120,.05);
+  }
+  .strain-sidebar{padding:22px 12px}
+  .strain-main{padding:26px 28px 34px;min-width:0}
+  .library-brand-lockup{margin-bottom:16px}
+  .library-brand-mark{width:50px;height:50px;flex-basis:50px}
+  .library-brand-mark:before{font-size:28px}
+  .library-brand-copy strong{font-size:17px}
+  .strain-library-head{margin-bottom:17px}
+  .strain-library-head h2{font-size:44px}
+  .library-subtitle{font-size:10px}
+  .library-count{padding:10px 12px;min-width:130px}
+  .library-count strong{font-size:22px}
+
+  .new-strains-banner{
+    display:flex!important;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:15px 17px!important;
+    margin:0 0 15px!important;
+    border-radius:15px!important;
+    background:linear-gradient(105deg,rgba(255,122,24,.10),rgba(255,61,120,.08),rgba(255,122,24,.045))!important;
+    border:1px solid rgba(255,122,24,.30)!important;
+    box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 30px rgba(0,0,0,.2)!important;
+  }
+  .new-strains-banner>div{min-width:0}
+  .new-strains-banner button{white-space:nowrap}
+
+  .strain-controls{grid-template-columns:minmax(220px,1.45fr) minmax(250px,1.1fr) 125px;gap:8px;margin:14px 0 9px}
+  .strain-search{height:40px}
+  .strain-controls select{height:40px}
+  .type-chips{overflow:hidden}
+  .type-chips button{padding:8px 8px;white-space:nowrap}
+
+  .library-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .library-card{min-width:0;border-radius:14px}
+  .strain-photo{height:170px}
+  .photo-overlay b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .photo-overlay small,.photo-overlay span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .library-body{padding:10px}
+  .score strong{width:32px;height:32px}
+  .library-vote{padding:7px 9px}
+
+  .strain-preview{width:min(800px,calc(100vw - 80px));grid-template-columns:330px minmax(0,1fr)}
+  .strain-preview-image{min-height:430px}
+  .strain-preview-content{padding:30px 32px}
+  .strain-preview-content h3{font-size:34px}
+}
+
+/* Typical Chromebook widths: avoid tiny cards and horizontal crowding. */
+@media (min-width:900px) and (max-width:1200px){
+  .strain-library{width:calc(100vw - 28px);grid-template-columns:195px minmax(0,1fr);margin:20px auto 34px}
+  .strain-main{padding:22px 22px 30px}
+  .strain-sidebar{padding:18px 10px}
+  .side-brand{padding:15px 10px}
+  .side-logo{width:48px;height:48px;font-size:25px}
+  .strain-sidebar nav a{font-size:8px;padding:8px}
+  .strain-library-head h2{font-size:39px}
+  .library-count{min-width:112px}
+  .strain-controls{grid-template-columns:1fr 1fr;}
+  .strain-controls select{grid-column:2;grid-row:1}
+  .type-chips{grid-column:1 / -1;grid-row:2;justify-content:flex-start}
+  .library-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .strain-photo{height:155px}
+}
+
+@media (min-width:1201px) and (max-width:1450px){
+  .strain-library{width:calc(100vw - 44px);grid-template-columns:220px minmax(0,1fr)}
+  .library-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+  .strain-photo{height:180px}
+}
