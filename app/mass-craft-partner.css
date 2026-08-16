@@ -1,6 +1,6 @@
-/* Mass Craft Botanicals partner treatment */
-.partner-grid .upcoming{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 35%,rgba(146,255,35,.18),transparent 48%),linear-gradient(145deg,#11170c,#080b08);border-color:rgba(150,220,45,.45);border-style:solid}
-.partner-grid .upcoming:before{content:'MASS CRAFT';display:block;position:absolute;inset:70px 10px auto;text-align:center;font-weight:1000;font-size:28px;letter-spacing:-.06em;color:#a8df42;text-shadow:0 0 20px rgba(168,223,66,.18);z-index:1}
-.partner-grid .upcoming:after{content:'BOTANICALS  •  PARTICIPATING BRAND';position:absolute;left:0;right:0;bottom:64px;text-align:center;font-size:7px;letter-spacing:.18em;color:#ff7a18;z-index:1}
-.partner-grid .upcoming .partner-mark,.partner-grid .upcoming .partner-tile-bottom{opacity:.18}
-.partner-grid .upcoming .partner-badge{color:#b8e66b;border-color:rgba(184,230,107,.45)}
+/* Mass Craft Botanicals official partner treatment */
+.partner-tile.masscraft{position:relative;overflow:hidden;background:radial-gradient(circle at 50% 30%,rgba(146,255,35,.22),transparent 48%),linear-gradient(145deg,#11170c,#080b08);border-color:rgba(150,220,45,.55)}
+.partner-tile.masscraft:before{content:'';position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-70px;background:rgba(168,223,66,.08);pointer-events:none}
+.partner-tile.masscraft .partner-mark span{color:#a8df42;text-shadow:0 0 20px rgba(168,223,66,.18)}
+.partner-tile.masscraft .partner-badge{color:#b8e66b;border-color:rgba(184,230,107,.45)}
+.partner-tile.masscraft .partner-tile-bottom em{color:#b8e66b;border-color:rgba(184,230,107,.35)}
