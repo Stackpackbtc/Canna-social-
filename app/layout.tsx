@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import './upgrade.css'
 import './review-images.css'
@@ -29,15 +30,20 @@ import './canna-social-maps-logo.css'
 import './final-ui-fix.css'
 import './premium-ui-fix.css'
 import './voter-experience.css'
-import CommunityReviews from '@/components/community-reviews'
-import ThemeToggle from '@/components/theme-toggle'
-import LiveVotes from '@/components/live-votes'
-import StrainLibrary from '@/components/strain-library'
-import CannaSocialCard from '@/components/canna-social-card'
-import CannaBranding from '@/components/canna-branding'
-import CannaMascot from '@/components/canna-mascot'
-import CannaEducation from '@/components/canna-education'
-import CannaSocialMaps from '@/components/canna-social-maps'
-import AgeGate from '@/components/age-gate'
+
+const CommunityReviews = dynamic(() => import('@/components/community-reviews'), { ssr: false })
+const ThemeToggle = dynamic(() => import('@/components/theme-toggle'), { ssr: false })
+const LiveVotes = dynamic(() => import('@/components/live-votes'), { ssr: false })
+const StrainLibrary = dynamic(() => import('@/components/strain-library'), { ssr: false })
+const CannaSocialCard = dynamic(() => import('@/components/canna-social-card'), { ssr: false })
+const CannaBranding = dynamic(() => import('@/components/canna-branding'), { ssr: false })
+const CannaMascot = dynamic(() => import('@/components/canna-mascot'), { ssr: false })
+const CannaEducation = dynamic(() => import('@/components/canna-education'), { ssr: false })
+const CannaSocialMaps = dynamic(() => import('@/components/canna-social-maps'), { ssr: false })
+const AgeGate = dynamic(() => import('@/components/age-gate'), { ssr: false })
+
 export const metadata: Metadata = { title: 'Canna Social — The People’s Cannabis Platform', description: 'Discover, vote, review, and connect around cannabis culture and strain knowledge.' }
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html> }
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+ return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
+}
