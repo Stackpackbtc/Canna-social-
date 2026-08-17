@@ -1,4 +1,5 @@
 'use client'
+
 import { useEffect, useMemo, useState } from 'react'
 
 const photos = [
@@ -8,27 +9,24 @@ const photos = [
   'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Closeup%2001.jpg',
   'https://commons.wikimedia.org/wiki/Special:FilePath/Cannabis%20Closeup%2002.jpg',
 ]
-const names = ['Pink Runtz','Super Lemon Haze','Jelly Donutz','Blue Dream','Wedding Cake','Gelato 41','OG Kush','Granddaddy Purple','Runtz','Sour Diesel','Northern Lights','Gorilla Glue #4','Zkittlez','White Widow','Acapulco Gold','Gelato 33','Sunset Sherbet','Animal Cookies','Girl Scout Cookies','Biscotti','MAC 1','Dosidos','Ice Cream Cake','Cereal Milk','Gary Payton','Permanent Marker','Jealousy','Oreoz','Gushers','Lemon Cherry Gelato','Strawberry Banana','Jack Herer','Green Crack','AK-47','Bruce Banner','Chemdawg','Trainwreck','Durban Poison','Pineapple Express','Tangie','Mimosa','Amnesia Haze','Ghost Train Haze','Purple Haze','LA Confidential','Kosher Kush','Skywalker OG','Fire OG','Grape Ape','Forbidden Fruit','Blackberry Kush','Blue Cheese','Bubblegum','Godfather OG','GMO','Donny Burger','Meat Breath','Motor Breath','London Pound Cake','Rainbow Belts','Cherry Pie','Apple Fritter','Kush Mints','Wedding Crasher','Lava Cake','White Runtz','Black Runtz','Zoap','Super Boof','RS11','Grape Gas','Gas Face','Lemon Tree','Blueberry Muffin','Purple Punch','Banana Cream','Papaya Cake','Mango Kush','Sour Tangie','Chem 91','Strawberry Diesel','NYC Diesel','Super Silver Haze','Golden Goat','Chocolope','Jack the Ripper','Agent Orange','Black Cherry Gelato','Koffin Kandy']
-const strains = Array.from(new Set(names)).map((name, i) => [name, 1284 - i * 4] as [string, number])
-const questions = [
-  { q: 'Which strain would you pick today?', o: ['Pink Runtz','Super Lemon Haze','Jelly Donutz','Blue Dream'], v: [34,29,21,16] },
-  { q: 'What matters most when choosing flower?', o: ['Flavor','Effects','Terpenes','Potency'], v: [31,37,20,12] },
-  { q: 'Which category deserves more Canna Social coverage?', o: ['Flower','Pre-Rolls','Edibles','Concentrates'], v: [43,27,18,12] },
+
+const names = [
+  'Pink Runtz','Super Lemon Haze','Jelly Donutz','Blue Dream','Wedding Cake','Gelato 41','OG Kush','Granddaddy Purple','Runtz','Sour Diesel','Northern Lights','Gorilla Glue #4','Zkittlez','White Widow','Acapulco Gold','Gelato 33','Sunset Sherbet','Animal Cookies','Girl Scout Cookies','Biscotti','MAC 1','Dosidos','Ice Cream Cake','Cereal Milk','Gary Payton','Permanent Marker','Jealousy','Oreoz','Gushers','Lemon Cherry Gelato','Strawberry Banana','Jack Herer','Green Crack','AK-47','Bruce Banner','Chemdawg','Trainwreck','Durban Poison','Pineapple Express','Tangie','Mimosa','Amnesia Haze','Ghost Train Haze','Purple Haze','LA Confidential','Kosher Kush','Skywalker OG','Fire OG','Grape Ape','Forbidden Fruit','Blackberry Kush','Blue Cheese','Bubblegum','Godfather OG','GMO','Donny Burger','Meat Breath','Motor Breath','London Pound Cake','Rainbow Belts','Cherry Pie','Apple Fritter','Kush Mints','Wedding Crasher','Lava Cake','White Runtz','Black Runtz','Zoap','Super Boof','RS11','Grape Gas','Gas Face','Lemon Tree','Blueberry Muffin','Purple Punch','Banana Cream','Papaya Cake','Mango Kush','Sour Tangie','Chem 91','Strawberry Diesel','NYC Diesel','Super Silver Haze','Golden Goat','Chocolope','Jack the Ripper','Agent Orange','Black Cherry Gelato','Koffin Kandy'
 ]
+
+const strains = Array.from(new Set(names)).map((name, i) => [name, 1284 - i * 4] as [string, number])
 const activity = ['community voting is live','a new GAS vote landed','the community is voting','a new PASS vote landed','live voting is active']
 const hash = (s: string) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h }
+
 type Voter = { name: string; action: 'GAS' | 'PASS'; strain: string }
-type PendingVote = { kind: 'strain'; name: string; type: 'GAS' | 'PASS' } | { kind: 'poll'; question: number; option: number }
+type PendingVote = { name: string; type: 'GAS' | 'PASS' }
+type VoteSuccess = { name: string; type: 'GAS' | 'PASS' }
 
 export default function LiveVotes() {
-  const [selected, setSelected] = useState<Record<number, number>>({})
-  const [votes, setVotes] = useState(questions.map(q => q.v))
   const [strainVotes, setStrainVotes] = useState<Record<string, 'gas' | 'pass'>>({})
   const [liveBump, setLiveBump] = useState<Record<string, number>>({})
-  const [q, setQ] = useState(0)
-  const [showAll, setShowAll] = useState(false)
   const [feedIndex, setFeedIndex] = useState(0)
-  const [lastAction, setLastAction] = useState('')
+  const [showAll, setShowAll] = useState(false)
   const [filter, setFilter] = useState<'all' | 'trending' | 'my'>('all')
   const [sessionVotes, setSessionVotes] = useState(0)
   const [voterName, setVoterName] = useState('')
@@ -36,10 +34,15 @@ export default function LiveVotes() {
   const [voterVerified, setVoterVerified] = useState(false)
   const [pendingVote, setPendingVote] = useState<PendingVote | null>(null)
   const [voterFeed, setVoterFeed] = useState<Voter[]>([])
+  const [lastAction, setLastAction] = useState('')
+  const [voteSuccess, setVoteSuccess] = useState<VoteSuccess | null>(null)
 
-  const current = questions[q]
   const pool = useMemo(() => strains.slice(0, showAll ? strains.length : 36), [showAll])
-  const filteredPool = useMemo(() => filter === 'my' ? pool.filter(([name]) => !!strainVotes[name]) : filter === 'trending' ? pool.slice(0, 12) : pool, [filter, pool, strainVotes])
+  const filteredPool = useMemo(() => {
+    if (filter === 'my') return pool.filter(([name]) => !!strainVotes[name])
+    if (filter === 'trending') return pool.slice(0, 12)
+    return pool
+  }, [filter, pool, strainVotes])
   const visible = filteredPool.slice(0, showAll ? 24 : 12)
 
   useEffect(() => {
@@ -47,22 +50,23 @@ export default function LiveVotes() {
     return () => window.clearInterval(timer)
   }, [pool.length])
 
-  function addVoter(entry: Voter) { setVoterFeed(feed => [entry, ...feed].slice(0, 6)) }
+  function addVoter(entry: Voter) {
+    setVoterFeed(feed => [entry, ...feed].slice(0, 6))
+  }
+
+  function showVoteSuccess(name: string, type: 'GAS' | 'PASS') {
+    setLastAction(`Your ${type} vote on ${name} is counted`)
+    setVoteSuccess({ name, type })
+    window.setTimeout(() => setVoteSuccess(current => current?.name === name && current?.type === type ? null : current), 2200)
+  }
 
   function recordStrainVote(name: string, type: 'GAS' | 'PASS', displayName: string) {
+    if (strainVotes[name]) return
     setStrainVotes(v => ({ ...v, [name]: type === 'GAS' ? 'gas' : 'pass' }))
     setLiveBump(v => ({ ...v, [name]: (v[name] || 0) + 1 }))
     setSessionVotes(n => n + 1)
-    setLastAction(`Your ${type} vote on ${name} is counted`)
     addVoter({ name: displayName, action: type, strain: name })
-  }
-
-  function recordPollVote(question: number, option: number, displayName: string) {
-    setSelected(s => ({ ...s, [question]: option }))
-    setVotes(all => all.map((arr, qi) => qi === question ? arr.map((n, oi) => oi === option ? n + 1 : n) : arr))
-    setSessionVotes(n => n + 1)
-    setLastAction(`Your vote on ${questions[question].o[option]} is counted`)
-    addVoter({ name: displayName, action: 'GAS', strain: questions[question].o[option] })
+    showVoteSuccess(name, type)
   }
 
   function openStrainVote(name: string, type: 'gas' | 'pass') {
@@ -71,30 +75,18 @@ export default function LiveVotes() {
       recordStrainVote(name, type.toUpperCase() as 'GAS' | 'PASS', voterName.trim())
       return
     }
-    setPendingVote({ kind: 'strain', name, type: type.toUpperCase() as 'GAS' | 'PASS' })
-    setVoterName('')
-    setAgeConfirmed(false)
-  }
-
-  function openPollVote(option: number) {
-    if (selected[q] !== undefined) return
-    if (voterVerified && voterName.trim()) {
-      recordPollVote(q, option, voterName.trim())
-      return
-    }
-    setPendingVote({ kind: 'poll', question: q, option })
-    setVoterName('')
+    setPendingVote({ name, type: type.toUpperCase() as 'GAS' | 'PASS' })
     setAgeConfirmed(false)
   }
 
   function submitFirstVote() {
     if (!pendingVote || !ageConfirmed || !voterName.trim()) return
+    const pending = pendingVote
     const displayName = voterName.trim()
     setVoterVerified(true)
-    if (pendingVote.kind === 'strain') recordStrainVote(pendingVote.name, pendingVote.type, displayName)
-    else recordPollVote(pendingVote.question, pendingVote.option, displayName)
     setPendingVote(null)
     setAgeConfirmed(false)
+    recordStrainVote(pending.name, pending.type, displayName)
   }
 
   const totalLive = visible.reduce((sum, [name, count]) => sum + count + (liveBump[name] || 0), 0)
@@ -102,18 +94,54 @@ export default function LiveVotes() {
   const feedAction = feedIndex % 3 === 0 ? 'GAS' : 'PASS'
 
   return <section className="live-votes shell" id="live-votes">
-    <div className="live-votes-head"><div><div className="live-kicker"><span className="live-dot"/> LIVE COMMUNITY <b>GAS OR PASS</b></div><h2>The community is voting <span>right now.</span></h2><p className="muted">Discover strains, make your pick, and watch the community pulse change.</p></div><div className="live-now"><span className="pulse-ring"/> LIVE NOW<strong>{totalLive.toLocaleString()}</strong><small>votes moving in the feed</small></div></div>
+    <div className="live-votes-head">
+      <div><div className="live-kicker"><span className="live-dot"/> LIVE COMMUNITY <b>GAS OR PASS</b></div><h2>The community is voting <span>right now.</span></h2><p className="muted">Discover strains, make your pick, and watch the community pulse change.</p></div>
+      <div className="live-now"><span className="pulse-ring"/> LIVE NOW<strong>{totalLive.toLocaleString()}</strong><small>votes moving in the feed</small></div>
+    </div>
+
     <div className="community-pulse"><div><span className="pulse-icon">✦</span><div><b>COMMUNITY PULSE</b><small>Live activity · Updated while you browse</small></div></div><div className="pulse-stats"><span><strong>{visible.length}</strong> strains live</span><span><strong>{sessionVotes}</strong> your votes</span><span><strong>{sessionVotes ? Math.min(100, Math.round(sessionVotes / 5) * 20) : 0}%</strong> session progress</span></div></div>
+
     <div className="live-voter-marquee" aria-live="polite"><div className="live-voter-label"><span className="live-dot"/><b>VOTING LIVE</b></div><div className="live-voter-stream">{voterFeed.length ? voterFeed.map((v, i) => <span className="voter-chip" key={`${v.name}-${v.strain}-${i}`}><i>{v.name.slice(0,1).toUpperCase()}</i><b>{v.name}</b><em>{v.action}</em><small>{v.strain}</small></span>) : <span className="voter-chip placeholder"><i>✦</i><b>Be the first name on the feed</b><small>Your name appears after your first vote</small></span>}</div></div>
+
     <div className="live-activity-strip"><span className="live-dot"/><strong>LIVE</strong><span className="activity-avatar">✦</span><span>{activity[feedIndex % activity.length]}</span><em className={feedAction === 'GAS' ? 'gas-text' : 'pass-text'}>{feedAction}</em><span>on <b>{feedStrain}</b></span></div>
+
     <div className="vote-controls"><div><b>VOTE FEED</b><small>Choose what you want to see</small></div><div className="canna-vote-filter-v2" role="tablist" aria-label="Vote feed filters"><span role="tab" tabIndex={0} aria-selected={filter === 'all'} className={filter === 'all' ? 'is-active' : ''} onClick={() => setFilter('all')}>ALL</span><span role="tab" tabIndex={0} aria-selected={filter === 'trending'} className={filter === 'trending' ? 'is-active' : ''} onClick={() => setFilter('trending')}>🔥 TRENDING</span><span role="tab" tabIndex={0} aria-selected={filter === 'my'} className={filter === 'my' ? 'is-active' : ''} onClick={() => setFilter('my')}>✦ MY VOTES</span></div></div>
+
     {lastAction && <div className="your-vote-toast">✓ {lastAction}</div>}
-    {filter === 'my' && visible.length === 0 ? <div className="vote-empty">Cast your first GAS or PASS vote and it will appear here.</div> : <div className="strain-vote-grid">{visible.map(([name, count], i) => { const choice = strainVotes[name], displayCount = count + (liveBump[name] || 0), gas = 58 + (hash(name) % 29), pass = 100 - gas; return <article className={`strain-vote-card ${choice ? 'has-vote' : ''}`} key={name}>
-      <span className="strain-rank">#{String(i + 1).padStart(3,'0')}</span><div className="strain-art"><img src={photos[hash(name) % photos.length]} alt={`${name} cannabis flower`} loading="lazy" decoding="async"/><span>✦ CANNA SOCIAL</span><em>{i < 5 ? 'TRENDING' : 'LIVE'}</em></div>
-      <div className="live-card-title"><h3>{name}</h3><p className="live-count"><i/> {displayCount.toLocaleString()} votes <b>• LIVE</b></p></div><div className="mini-signal"><span style={{width:`${gas}%`}}/><b>{gas}% GAS</b></div><div className="gas-pass" style={{position:'relative',zIndex:20,pointerEvents:'auto'}}><button type="button" aria-label={`Vote GAS for ${name}`} className={`gas ${choice === 'gas' ? 'chosen' : ''}`} disabled={!!choice} style={{position:'relative',zIndex:21}} onClick={e => {e.preventDefault();e.stopPropagation();openStrainVote(name,'gas')}}>🔥 GAS <b>{gas}%</b></button><button type="button" aria-label={`Vote PASS for ${name}`} className={`pass ${choice === 'pass' ? 'chosen' : ''}`} disabled={!!choice} style={{position:'relative',zIndex:21}} onClick={e => {e.preventDefault();e.stopPropagation();openStrainVote(name,'pass')}}>✕ PASS <b>{pass}%</b></button></div>{choice && <div className="vote-confirm">✓ Your {choice.toUpperCase()} is counted</div>}
-    </article> })}</div>}
+
+    {filter === 'my' && visible.length === 0 ? <div className="vote-empty">Cast your first GAS or PASS vote and it will appear here.</div> : <div className="strain-vote-grid">{visible.map(([name, count], i) => {
+      const choice = strainVotes[name]
+      const displayCount = count + (liveBump[name] || 0)
+      const gas = 58 + (hash(name) % 29)
+      const pass = 100 - gas
+      return <article className={`strain-vote-card ${choice ? 'has-vote' : ''}`} key={name}>
+        <span className="strain-rank">#{String(i + 1).padStart(3,'0')}</span>
+        <div className="strain-art"><img src={photos[hash(name) % photos.length]} alt={`${name} cannabis flower`} loading="lazy" decoding="async"/><span>✦ CANNA SOCIAL</span><em>{i < 5 ? 'TRENDING' : 'LIVE'}</em></div>
+        <div className="live-card-title"><h3>{name}</h3><p className="live-count"><i/> {displayCount.toLocaleString()} votes <b>• LIVE</b></p></div>
+        <div className="mini-signal"><span style={{width:`${gas}%`}}/><b>{gas}% GAS</b></div>
+        <div className="gas-pass" style={{position:'relative',zIndex:20,pointerEvents:'auto'}}>
+          <button type="button" aria-label={`Vote GAS for ${name}`} className={`gas ${choice === 'gas' ? 'chosen' : ''}`} disabled={!!choice} style={{position:'relative',zIndex:21,pointerEvents:choice ? 'none' : 'auto'}} onClick={e => {e.preventDefault();e.stopPropagation();openStrainVote(name,'gas')}}>🔥 GAS <b>{gas}%</b></button>
+          <button type="button" aria-label={`Vote PASS for ${name}`} className={`pass ${choice === 'pass' ? 'chosen' : ''}`} disabled={!!choice} style={{position:'relative',zIndex:21,pointerEvents:choice ? 'none' : 'auto'}} onClick={e => {e.preventDefault();e.stopPropagation();openStrainVote(name,'pass')}}>✕ PASS <b>{pass}%</b></button>
+        </div>
+        {choice && <div className="vote-confirm">✓ Your {choice.toUpperCase()} is counted</div>}
+      </article>
+    })}</div>}
+
     <button type="button" className="strain-more" onClick={() => setShowAll(!showAll)}>{showAll ? 'Show less' : 'Load more live strains →'}</button>
-    <div className="live-poll" id="live-poll"><div className="poll-switcher">{questions.map((_,i)=><button type="button" key={i} className={q===i?'active':''} onClick={()=>setQ(i)}>Poll {i+1}</button>)}</div><p className="eyebrow">LIVE POLL · {votes[q].reduce((a,b)=>a+b,0).toLocaleString()} VOTES</p><h3>{current.q}</h3><div className="live-options">{current.o.map((option,i)=>{const total=votes[q].reduce((a,b)=>a+b,0);const percent=Math.round(votes[q][i]/total*100);return <button type="button" key={option} className={selected[q]===i?'chosen':''} onClick={()=>openPollVote(i)}><span className="option-label"><b>{String.fromCharCode(65+i)}</b>{option}</span><span className="result"><i style={{width:`${percent}%`}}/><em>{percent}%</em></span></button>})}</div><p className="voted-note">{selected[q]!==undefined?'✓ Your vote is counted. Results are live.':'Confirm your legal age once to vote and reveal the live community split.'}</p></div>
-    {pendingVote && <div className="voter-gate-backdrop" role="dialog" aria-modal="true" aria-labelledby="voter-gate-title" style={{position:'fixed',inset:0,zIndex:99999,pointerEvents:'auto',display:'grid',placeItems:'center',padding:'20px',background:'rgba(0,0,0,.78)',backdropFilter:'blur(12px)'}}><div className="voter-gate" style={{position:'relative',zIndex:100000,pointerEvents:'auto',maxWidth:'520px',width:'100%'}} onClick={e=>e.stopPropagation()}><div className="voter-gate-star">✦</div><p className="voter-gate-kicker">CANNA SOCIAL · VOTER ACCESS</p><h3 id="voter-gate-title">Confirm before you vote.</h3><p className="voter-gate-copy">Confirm your legal age before voting and choose a screen name for the live voter feed.</p><label className="voter-name-label">SCREEN NAME<input autoFocus value={voterName} maxLength={24} onChange={e=>setVoterName(e.target.value.replace(/[<>]/g,''))} placeholder="Enter a screen name"/></label><label className="voter-age-check"><input type="checkbox" checked={ageConfirmed} onChange={e=>setAgeConfirmed(e.target.checked)}/><span>I confirm that I am 21 or older.</span></label><button type="button" className="voter-gate-submit" disabled={!ageConfirmed || !voterName.trim()} onClick={e=>{e.preventDefault();e.stopPropagation();submitFirstVote()}}>CONFIRM 21+ &amp; VOTE <span>→</span></button><p className="voter-gate-note">You’ll only be asked once during this visit.</p></div></div>}
+
+    {pendingVote && <div className="voter-gate-backdrop" role="dialog" aria-modal="true" aria-labelledby="voter-gate-title" style={{position:'fixed',inset:0,zIndex:99999,pointerEvents:'auto',display:'grid',placeItems:'center',padding:'20px',background:'rgba(0,0,0,.78)',backdropFilter:'blur(12px)'}}>
+      <div className="voter-gate" style={{position:'relative',zIndex:100000,pointerEvents:'auto',maxWidth:'520px',width:'100%'}} onClick={e=>e.stopPropagation()}>
+        <div className="voter-gate-star">✦</div><p className="voter-gate-kicker">CANNA SOCIAL · VOTER ACCESS</p><h3 id="voter-gate-title">Confirm before you vote.</h3><p className="voter-gate-copy">Confirm your legal age before voting and choose a screen name for the live voter feed.</p>
+        <label className="voter-name-label">SCREEN NAME<input autoFocus value={voterName} maxLength={24} onChange={e=>setVoterName(e.target.value.replace(/[<>]/g,''))} placeholder="Enter a screen name"/></label>
+        <label className="voter-age-check"><input type="checkbox" checked={ageConfirmed} onChange={e=>setAgeConfirmed(e.target.checked)}/><span>I confirm that I am 21 or older.</span></label>
+        <button type="button" className="voter-gate-submit" disabled={!ageConfirmed || !voterName.trim()} onClick={e=>{e.preventDefault();e.stopPropagation();submitFirstVote()}}>CONFIRM 21+ &amp; VOTE <span>→</span></button>
+        <p className="voter-gate-note">You’ll only be asked to confirm once during this visit.</p>
+      </div>
+    </div>}
+
+    {voteSuccess && <div className="vote-success-overlay" role="status" aria-live="polite" onClick={() => setVoteSuccess(null)}>
+      <div className="vote-success-card" onClick={e => e.stopPropagation()}>
+        <div className="vote-success-icon">✓</div><div className="vote-success-kicker">VOTE CONFIRMED</div><h3>{voteSuccess.type} COUNTED</h3><p>Your <b>{voteSuccess.type}</b> vote for <strong>{voteSuccess.name}</strong> has been added to the community count.</p><div className="vote-success-stats"><span><b>+1</b><small>YOUR VOTE</small></span><span><b>{sessionVotes}</b><small>YOUR VOTES</small></span></div><button type="button" onClick={() => setVoteSuccess(null)}>KEEP VOTING →</button></div>
+    </div>}
   </section>
 }
