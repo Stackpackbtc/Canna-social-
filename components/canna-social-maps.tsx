@@ -6,6 +6,12 @@ export default function CannaSocialMaps(){
  const search=(term:string)=>{const q=term.trim()||'cannabis dispensary near me';window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,'_blank','noopener,noreferrer')}
  const useLocation=()=>{setStatus('Finding your location…');if(!navigator.geolocation){setStatus('Location is not supported on this device.');return}navigator.geolocation.getCurrentPosition(({coords})=>{const q=`cannabis dispensary near ${coords.latitude},${coords.longitude}`;window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,'_blank','noopener,noreferrer');setStatus('Nearby dispensaries opened in Maps.');},()=>setStatus('Location permission was not granted. Search by city or ZIP instead.'),{enableHighAccuracy:true,timeout:10000,maximumAge:300000})}
  return <>
+  <section className="canna-maps-feature shell" aria-label="Canna Social Maps">
+   <div className="maps-feature-glow" />
+   <div className="maps-feature-brand"><div className="maps-feature-star">✦</div><div><p>CANNA SOCIAL</p><h2>MAPS</h2></div><span className="maps-live">LIVE SEARCH</span></div>
+   <div className="maps-feature-copy"><div><p className="maps-feature-eyebrow">FIND YOUR NEXT STOP</p><h3>Dispensaries,<br/><strong>right where you are.</strong></h3><p>Search by city, ZIP, neighborhood, or use your location to find dispensaries and open live map results.</p></div><div className="maps-feature-actions"><button className="maps-feature-primary" onClick={()=>setOpen(true)}>⌖ OPEN CANNA SOCIAL MAPS</button><button className="maps-feature-secondary" onClick={useLocation}>USE MY LOCATION →</button></div></div>
+   <div className="maps-feature-stats"><span><b>01</b> SEARCH NEAR YOU</span><span><b>02</b> EXPLORE LOCATIONS</span><span><b>03</b> GET DIRECTIONS</span></div>
+  </section>
   <button className="canna-maps-launcher" onClick={()=>setOpen(true)} aria-label="Open Canna Social Maps"><span className="maps-pin">⌖</span><span><b>CANNA SOCIAL</b><strong>MAPS</strong></span><em>FIND DISPENSARIES</em></button>
   {open&&<div className="canna-maps-backdrop" onClick={()=>setOpen(false)}><div className="canna-maps-modal" onClick={e=>e.stopPropagation()}>
    <button className="canna-maps-close" onClick={()=>setOpen(false)} aria-label="Close">×</button>
