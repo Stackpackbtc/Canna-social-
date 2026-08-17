@@ -32,6 +32,14 @@ import './voter-experience.css'
 import './voter-feed-final.css'
 import './voter-feed-nuclear.css'
 import CannaBranding from '@/components/canna-branding'
+import LiveVotes from '@/components/live-votes'
+import StrainLibrary from '@/components/strain-library'
+import CannaSocialCard from '@/components/canna-social-card'
+import CommunityReviews from '@/components/community-reviews'
+import CannaMascot from '@/components/canna-mascot'
+import CannaEducation from '@/components/canna-education'
+import CannaSocialMaps from '@/components/canna-social-maps'
+import ThemeToggle from '@/components/theme-toggle'
 import AgeGate from '@/components/age-gate'
 
 export const metadata: Metadata = {
@@ -40,5 +48,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CannaBranding />{children}<AgeGate /></body></html>
+  return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
 }
