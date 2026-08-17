@@ -1,0 +1,44 @@
+/* Canna Social — safe desktop strain library layout fix. Layout only; no component logic changes. */
+.strain-library{min-width:0!important}
+.strain-main{min-width:0!important}
+.library-grid{min-width:0!important}
+.library-card{min-width:0!important}
+
+@media (min-width:1101px) and (max-width:1499px){
+  .strain-library{width:calc(100vw - 48px)!important;grid-template-columns:230px minmax(0,1fr)!important}
+  .strain-main{padding:30px 30px 40px!important}
+  .strain-library-head{gap:18px!important}
+  .strain-library-head h2{font-size:50px!important}
+  .strain-controls{grid-template-columns:minmax(240px,1.35fr) minmax(260px,1.25fr) 130px!important;gap:9px!important}
+  .type-chips{flex-wrap:wrap!important;min-width:0!important}
+  .library-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+  .strain-photo{height:185px!important}
+  .library-body{padding:10px!important}
+  .photo-overlay b{font-size:14px!important}
+}
+
+@media (min-width:1500px){
+  .strain-library{width:min(1580px,calc(100vw - 72px))!important}
+  .library-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:15px!important}
+  .strain-photo{height:205px!important}
+}
+
+@media (min-width:1101px){
+  .featured-strain,.strain-controls,.library-toolbar,.library-grid{min-width:0!important}
+  .strain-search,.type-chips,.strain-controls select{min-width:0!important}
+  .strain-search input{min-width:0!important}
+  .library-card,.strain-photo,.strain-card-open{max-width:100%!important}
+}
+
+@media (min-width:851px) and (max-width:1100px){
+  .strain-library{width:calc(100vw - 28px)!important}
+  .strain-main{padding:24px 22px 34px!important}
+  .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:11px!important}
+  .strain-photo{height:175px!important}
+  .strain-controls{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) 120px!important}
+}
+
+@media (max-width:850px){
+  .strain-library,.strain-main,.library-grid{min-width:0!important;max-width:100%!important}
+  .library-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
