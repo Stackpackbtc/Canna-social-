@@ -1,0 +1,17 @@
+/* Canna Social — Noticeable Visual Upgrade */
+:root{--cs-orange:#ff7a18;--cs-hot:#ff4d86;--cs-gold:#ffb347}
+body{background:radial-gradient(900px 420px at 50% -8%,rgba(255,122,24,.10),transparent 68%),#070807}
+.nav{background:linear-gradient(180deg,rgba(12,13,12,.94),rgba(7,8,7,.88));border-bottom:1px solid rgba(255,122,24,.18);box-shadow:0 10px 40px rgba(0,0,0,.34),0 1px 0 rgba(255,122,24,.08)}
+.nav:after{content:"";display:block;height:2px;background:linear-gradient(90deg,transparent,var(--cs-orange),var(--cs-hot),var(--cs-orange),transparent);opacity:.7}
+.hero,.hero-section,.home-hero{position:relative;overflow:hidden}
+.hero:before,.hero-section:before,.home-hero:before{content:"";position:absolute;inset:-35%;background:radial-gradient(circle at 22% 35%,rgba(255,122,24,.10),transparent 24%),radial-gradient(circle at 78% 60%,rgba(255,77,134,.08),transparent 24%);pointer-events:none}
+.hero h1,.hero-section h1,.home-hero h1{text-shadow:0 0 28px rgba(255,122,24,.12)}
+.primary,.home-brand-network-btn,.library-vote{border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 28px rgba(255,122,24,.12),inset 0 1px rgba(255,255,255,.16);background-image:linear-gradient(135deg,rgba(255,255,255,.10),transparent 45%)}
+.review-card,.library-card,.poll,.leaderboard,.featured-strain,.home-brand-network,.learn-cards>div{background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border-color:rgba(255,255,255,.09);box-shadow:0 18px 55px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.045)}
+.review-card:hover,.library-card:hover,.poll:hover,.leaderboard:hover,.featured-strain:hover,.home-brand-network:hover,.learn-cards>div:hover{transform:translateY(-4px);border-color:rgba(255,122,24,.28);box-shadow:0 24px 65px rgba(0,0,0,.38),0 0 28px rgba(255,122,24,.055)}
+.home-brand-network{position:relative;overflow:hidden}.home-brand-network:before{content:"✦";position:absolute;right:22px;top:12px;font-size:34px;color:rgba(255,122,24,.12);text-shadow:0 0 24px rgba(255,122,24,.3)}
+.eyebrow{color:var(--cs-orange);text-shadow:0 0 16px rgba(255,122,24,.2)}
+input,select,textarea{background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.10)}
+.ticker{background:linear-gradient(90deg,rgba(255,122,24,.045),rgba(255,77,134,.035),rgba(255,122,24,.045));box-shadow:inset 0 1px rgba(255,255,255,.03),inset 0 -1px rgba(255,122,24,.06)}
+@media(max-width:700px){.review-card:hover,.library-card:hover,.poll:hover,.leaderboard:hover,.featured-strain:hover,.home-brand-network:hover,.learn-cards>div:hover{transform:none}.nav:after{height:1px}}
+@media(prefers-reduced-motion:reduce){.review-card,.library-card,.poll,.leaderboard,.featured-strain,.home-brand-network,.learn-cards>div{transition:none!important}}
