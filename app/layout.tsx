@@ -34,6 +34,7 @@ import './voter-feed-nuclear.css'
 import './strain-library-desktop-fix.css'
 import './strain-library-desktop-override.css'
 import './strain-library-desktop-premium.css'
+import './strain-library-desktop-premium-final.css'
 import CannaBranding from '@/components/canna-branding'
 import LiveVotes from '@/components/live-votes'
 import StrainLibrary from '@/components/strain-library'
@@ -51,5 +52,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
+  return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaEducation /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
 }
