@@ -30,6 +30,7 @@ export default function LiveVotes() {
   const [filter, setFilter] = useState<'all' | 'trending' | 'my'>('all')
   const [sessionVotes, setSessionVotes] = useState(0)
   const [voterName, setVoterName] = useState('')
+  const [voterEmail, setVoterEmail] = useState('')
   const [ageConfirmed, setAgeConfirmed] = useState(false)
   const [voterVerified, setVoterVerified] = useState(false)
   const [pendingVote, setPendingVote] = useState<PendingVote | null>(null)
@@ -60,19 +61,28 @@ export default function LiveVotes() {
     window.setTimeout(() => setVoteSuccess(current => current?.name === name && current?.type === type ? null : current), 2200)
   }
 
-  function recordStrainVote(name: string, type: 'GAS' | 'PASS', displayName: string) {
+  function emailVoteResult(name: string, type: 'GAS' | 'PASS', displayName: string, email: string) {
+    void fetch('/api/voter-submission', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ screenName: displayName, email, strain: name, vote: type, ageConfirmed: true }),
+    }).catch(() => undefined)
+  }
+
+  function recordStrainVote(name: string, type: 'GAS' | 'PASS', displayName: string, email: string) {
     if (strainVotes[name]) return
     setStrainVotes(v => ({ ...v, [name]: type === 'GAS' ? 'gas' : 'pass' }))
     setLiveBump(v => ({ ...v, [name]: (v[name] || 0) + 1 }))
     setSessionVotes(n => n + 1)
     addVoter({ name: displayName, action: type, strain: name })
+    emailVoteResult(name, type, displayName, email)
     showVoteSuccess(name, type)
   }
 
   function openStrainVote(name: string, type: 'gas' | 'pass') {
     if (strainVotes[name]) return
-    if (voterVerified && voterName.trim()) {
-      recordStrainVote(name, type.toUpperCase() as 'GAS' | 'PASS', voterName.trim())
+    if (voterVerified && voterName.trim() && voterEmail.trim()) {
+      recordStrainVote(name, type.toUpperCase() as 'GAS' | 'PASS', voterName.trim(), voterEmail.trim())
       return
     }
     setPendingVote({ name, type: type.toUpperCase() as 'GAS' | 'PASS' })
@@ -80,13 +90,14 @@ export default function LiveVotes() {
   }
 
   function submitFirstVote() {
-    if (!pendingVote || !ageConfirmed || !voterName.trim()) return
+    if (!pendingVote || !ageConfirmed || !voterName.trim() || !voterEmail.trim()) return
     const pending = pendingVote
     const displayName = voterName.trim()
+    const email = voterEmail.trim().toLowerCase()
     setVoterVerified(true)
     setPendingVote(null)
     setAgeConfirmed(false)
-    recordStrainVote(pending.name, pending.type, displayName)
+    recordStrainVote(pending.name, pending.type, displayName, email)
   }
 
   const totalLive = visible.reduce((sum, [name, count]) => sum + count + (liveBump[name] || 0), 0)
@@ -131,10 +142,12 @@ export default function LiveVotes() {
 
     {pendingVote && <div className="voter-gate-backdrop" role="dialog" aria-modal="true" aria-labelledby="voter-gate-title" style={{position:'fixed',inset:0,zIndex:99999,pointerEvents:'auto',display:'grid',placeItems:'center',padding:'20px',background:'rgba(0,0,0,.78)',backdropFilter:'blur(12px)'}}>
       <div className="voter-gate" style={{position:'relative',zIndex:100000,pointerEvents:'auto',maxWidth:'520px',width:'100%'}} onClick={e=>e.stopPropagation()}>
-        <div className="voter-gate-star">✦</div><p className="voter-gate-kicker">CANNA SOCIAL · VOTER ACCESS</p><h3 id="voter-gate-title">Confirm before you vote.</h3><p className="voter-gate-copy">Confirm your legal age before voting and choose a screen name for the live voter feed.</p>
+        <div className="voter-gate-star">✦</div><p className="voter-gate-kicker">CANNA SOCIAL · VOTER ACCESS</p><h3 id="voter-gate-title">Confirm before you vote.</h3><p className="voter-gate-copy">Confirm your legal age before voting, choose a screen name, and enter an email for your voter submission.</p>
         <label className="voter-name-label">SCREEN NAME<input autoFocus value={voterName} maxLength={24} onChange={e=>setVoterName(e.target.value.replace(/[<>]/g,''))} placeholder="Enter a screen name"/></label>
+        <label className="voter-name-label">EMAIL ADDRESS<input type="email" inputMode="email" autoComplete="email" value={voterEmail} maxLength={254} onChange={e=>setVoterEmail(e.target.value.trimStart())} placeholder="Enter your email address"/></label>
         <label className="voter-age-check"><input type="checkbox" checked={ageConfirmed} onChange={e=>setAgeConfirmed(e.target.checked)}/><span>I confirm that I am 21 or older.</span></label>
-        <button type="button" className="voter-gate-submit" disabled={!ageConfirmed || !voterName.trim()} onClick={e=>{e.preventDefault();e.stopPropagation();submitFirstVote()}}>CONFIRM 21+ &amp; VOTE <span>→</span></button>
+        <p className="voter-gate-note">Your vote results are sent to Canna Social for review. Your email is not used to send the vote to Supabase.</p>
+        <button type="button" className="voter-gate-submit" disabled={!ageConfirmed || !voterName.trim() || !voterEmail.trim()} onClick={e=>{e.preventDefault();e.stopPropagation();submitFirstVote()}}>CONFIRM 21+ &amp; VOTE <span>→</span></button>
         <p className="voter-gate-note">You’ll only be asked to confirm once during this visit.</p>
       </div>
     </div>}
