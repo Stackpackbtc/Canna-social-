@@ -1,0 +1,85 @@
+/* Canna Social — final desktop Strain Library hero/header rebuild.
+   Presentation-only. Keeps strain data, cards, filters, and interactions unchanged. */
+@media (min-width:851px){
+  .strain-library{
+    width:calc(100vw - 48px)!important;
+    max-width:none!important;
+    grid-template-columns:250px minmax(0,1fr)!important;
+    overflow:visible!important;
+  }
+  .strain-main{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:36px 44px 48px!important}
+
+  .library-brand-lockup{
+    display:flex!important;align-items:center!important;gap:16px!important;
+    margin:0 0 18px!important;padding:0!important;
+  }
+  .library-brand-mark{width:64px!important;height:64px!important;flex:0 0 64px!important;border-radius:19px!important}
+  .library-brand-copy strong{font-size:21px!important}
+
+  .strain-library-head{
+    width:100%!important;display:flex!important;align-items:flex-end!important;
+    justify-content:space-between!important;gap:30px!important;margin:0 0 24px!important;
+  }
+  .strain-library-head>div:first-child{min-width:0!important;flex:1 1 auto!important}
+  .strain-library-head h2{
+    font-size:clamp(58px,5.2vw,82px)!important;
+    line-height:.84!important;letter-spacing:-.065em!important;
+    white-space:nowrap!important;margin:5px 0 12px!important;
+  }
+  .library-subtitle{font-size:13px!important;max-width:700px!important;line-height:1.5!important}
+  .library-count{
+    flex:0 0 auto!important;min-width:190px!important;padding:17px 20px!important;
+    border-radius:16px!important;box-shadow:0 12px 30px rgba(0,0,0,.3)!important;
+  }
+  .library-count strong{font-size:32px!important}
+  .library-count span{font-size:8px!important}
+
+  .featured-strain{
+    width:100%!important;display:grid!important;
+    grid-template-columns:minmax(0,1.45fr) minmax(360px,.85fr)!important;
+    min-height:310px!important;margin:0 0 24px!important;
+    border-radius:22px!important;overflow:hidden!important;
+    box-shadow:0 24px 65px rgba(0,0,0,.34)!important;
+  }
+  .featured-image{height:310px!important;min-width:0!important}
+  .featured-copy{min-width:0!important;padding:34px 38px!important}
+  .featured-copy h3{font-size:42px!important;line-height:1!important;margin:0 0 8px!important}
+  .featured-score strong{font-size:42px!important}
+  .featured-copy>p:not(.tiny){font-size:11px!important;line-height:1.6!important;max-width:560px!important}
+
+  .strain-controls{
+    width:100%!important;display:grid!important;
+    grid-template-columns:minmax(320px,1.4fr) minmax(330px,1fr) 150px!important;
+    gap:12px!important;margin:20px 0 11px!important;
+  }
+  .strain-search{height:46px!important}
+  .strain-controls select{height:46px!important}
+  .type-chips{flex-wrap:nowrap!important;overflow:visible!important}
+  .type-chips button{white-space:nowrap!important}
+  .library-toolbar{margin:11px 2px 14px!important}
+
+  .library-grid{width:100%!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px!important}
+  .strain-photo{height:210px!important}
+}
+
+@media (min-width:1500px){
+  .strain-library{grid-template-columns:270px minmax(0,1fr)!important;width:calc(100vw - 72px)!important}
+  .strain-main{padding-left:52px!important;padding-right:52px!important}
+  .library-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  .strain-photo{height:220px!important}
+}
+
+@media (min-width:851px) and (max-width:1150px){
+  .strain-library{grid-template-columns:190px minmax(0,1fr)!important;width:calc(100vw - 24px)!important}
+  .strain-main{padding:28px 24px 38px!important}
+  .strain-library-head h2{font-size:54px!important}
+  .library-count{min-width:150px!important}
+  .featured-strain{grid-template-columns:1fr 1fr!important;min-height:260px!important}
+  .featured-image{height:260px!important}
+  .featured-copy{padding:25px!important}
+  .featured-copy h3{font-size:32px!important}
+  .strain-controls{grid-template-columns:minmax(230px,1fr) minmax(260px,1fr)!important}
+  .strain-controls select{grid-column:1/-1!important}
+  .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .strain-photo{height:185px!important}
+}
