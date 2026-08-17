@@ -30,6 +30,7 @@ import './final-ui-fix.css'
 import './premium-ui-fix.css'
 import './voter-experience.css'
 import './voter-feed-final.css'
+import './voter-feed-nuclear.css'
 import CannaBranding from '@/components/canna-branding'
 import AgeGate from '@/components/age-gate'
 
