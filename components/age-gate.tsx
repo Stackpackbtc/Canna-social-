@@ -9,15 +9,15 @@ export default function AgeGate(){
 
   useEffect(()=>{
     if(mode!=='loading') return
-    const messages=['WELCOME TO CANNA SOCIAL','LOADING STRAIN LIBRARY','LOADING LIVE VOTES','LOADING COMMUNITY','ENTERING CANNA SOCIAL']
+    const messages=['WELCOME TO CANNA SOCIAL','PREPARING LIVE VOTES','PREPARING STRAIN LIBRARY','ENTERING CANNA SOCIAL']
     const started=Date.now()
-    const duration=2800
+    const duration=850
     const timer=window.setInterval(()=>{
       const pct=Math.min(100,Math.round(((Date.now()-started)/duration)*100))
       setProgress(pct)
-      setMessage(messages[Math.min(messages.length-1,Math.floor(pct/21))])
-      if(pct>=100){window.clearInterval(timer);window.setTimeout(()=>setMode('done'),260)}
-    },50)
+      setMessage(messages[Math.min(messages.length-1,Math.floor(pct/26))])
+      if(pct>=100){window.clearInterval(timer);window.setTimeout(()=>setMode('done'),80)}
+    },40)
     return()=>window.clearInterval(timer)
   },[mode])
 
