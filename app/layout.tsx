@@ -43,8 +43,10 @@ import './canna-social-maps-futuristic.css'
 import './canna-social-maps-floating-fix.css'
 import './live-vote-cards-premium.css'
 import './live-voter-motion.css'
+import './gibbys-live-vote.css'
 import CannaBranding from '@/components/canna-branding'
 import LiveVotes from '@/components/live-votes'
+import GibbysLemonHazeVote from '@/components/gibbys-lemon-haze-vote'
 import StrainLibrary from '@/components/strain-library'
 import CannaSocialCard from '@/components/canna-social-card'
 import CommunityReviews from '@/components/community-reviews'
@@ -60,5 +62,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaEducation /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
+  return <html lang="en"><body><CannaBranding />{children}<LiveVotes /><GibbysLemonHazeVote /><StrainLibrary /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaEducation /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
 }
