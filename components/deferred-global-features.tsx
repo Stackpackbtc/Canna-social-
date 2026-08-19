@@ -1,28 +1,20 @@
-'use client'
+import CannaSocialMaps from '@/components/canna-social-maps'
+import CannaEducation from '@/components/canna-education'
+import CannaSocialCard from '@/components/canna-social-card'
+import CommunityReviews from '@/components/community-reviews'
+import CannaMascot from '@/components/canna-mascot'
+import ThemeToggle from '@/components/theme-toggle'
 
-import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
-
-const CannaSocialMaps = dynamic(() => import('@/components/canna-social-maps'), { ssr: false })
-const CannaEducation = dynamic(() => import('@/components/canna-education'), { ssr: false })
-const CannaSocialCard = dynamic(() => import('@/components/canna-social-card'), { ssr: false })
-const CommunityReviews = dynamic(() => import('@/components/community-reviews'), { ssr: false })
-const CannaMascot = dynamic(() => import('@/components/canna-mascot'), { ssr: false })
-const ThemeToggle = dynamic(() => import('@/components/theme-toggle'), { ssr: false })
-
-export default function DeferredGlobalFeatures(){
- const [ready,setReady]=useState(false)
- useEffect(()=>{
-  const id=window.setTimeout(()=>setReady(true),180)
-  return()=>window.clearTimeout(id)
- },[])
- if(!ready)return null
- return <>
-  <CannaSocialMaps />
-  <CannaEducation />
-  <CannaSocialCard />
-  <CommunityReviews />
-  <CannaMascot />
-  <ThemeToggle />
- </>
+/** Core site chrome/widgets render with the first page so there is no blank gap. */
+export default function DeferredGlobalFeatures() {
+  return (
+    <>
+      <CannaSocialMaps />
+      <CannaEducation />
+      <CannaSocialCard />
+      <CommunityReviews />
+      <CannaMascot />
+      <ThemeToggle />
+    </>
+  )
 }
