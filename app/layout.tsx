@@ -48,7 +48,9 @@ import './scroll-performance-fix.css'
 import './strain-library-desktop-final-lock.css'
 import './performance-and-card-fix.css'
 import './canna-social-maps-final-fix.css'
+import './site-navigation.css'
 import CannaBranding from '@/components/canna-branding'
+import SiteNavigation from '@/components/site-navigation'
 import CannaSocialCard from '@/components/canna-social-card'
 import CommunityReviews from '@/components/community-reviews'
 import CannaMascot from '@/components/canna-mascot'
@@ -64,5 +66,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CannaBranding />{children}<DeferredSiteFeatures /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
+  return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<DeferredSiteFeatures /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
 }
