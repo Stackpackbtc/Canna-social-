@@ -1,0 +1,73 @@
+/* Desktop/large-screen Strain Library stability fix.
+   Keep cards in a normal responsive grid; never allow flex children to collapse
+   into ultra-narrow vertical slivers. */
+.strain-library-shell,
+.strain-library,
+[class*="strain-library"] { box-sizing:border-box; }
+
+@media (min-width: 761px) {
+  .strain-library-shell {
+    width:min(100%, 1180px) !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    overflow:visible !important;
+  }
+
+  .strain-library-shell > *,
+  .strain-library-grid,
+  .strain-library-list,
+  .strain-grid,
+  .strains-grid,
+  [class*="strain-grid"] {
+    min-width:0 !important;
+  }
+
+  .strain-library-grid,
+  .strain-library-list,
+  .strain-grid,
+  .strains-grid {
+    display:grid !important;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr)) !important;
+    gap:20px !important;
+    width:100% !important;
+    align-items:stretch !important;
+  }
+
+  .strain-library-grid > *,
+  .strain-library-list > *,
+  .strain-grid > *,
+  .strains-grid > * {
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    flex:none !important;
+  }
+
+  .strain-library-grid img,
+  .strain-library-list img,
+  .strain-grid img,
+  .strains-grid img {
+    width:100% !important;
+    max-width:100% !important;
+    height:auto !important;
+    object-fit:cover !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .strain-library-grid,
+  .strain-library-list,
+  .strain-grid,
+  .strains-grid {
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width:1199px) {
+  .strain-library-grid,
+  .strain-library-list,
+  .strain-grid,
+  .strains-grid {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+}
