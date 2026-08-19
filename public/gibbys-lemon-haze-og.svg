@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">Gibby's Craft Cannabis Lemon Haze OG</title>
+<desc id="desc">A crisp illustrated Lemon Haze cannabis flower with citrus accents for the Canna Social voter card.</desc>
+<defs>
+  <radialGradient id="bg" cx="50%" cy="40%" r="80%"><stop offset="0" stop-color="#26351a"/><stop offset=".55" stop-color="#10150f"/><stop offset="1" stop-color="#050607"/></radialGradient>
+  <radialGradient id="bud" cx="42%" cy="30%" r="70%"><stop offset="0" stop-color="#d9e889"/><stop offset=".25" stop-color="#8eb63e"/><stop offset=".58" stop-color="#477d2d"/><stop offset="1" stop-color="#16351e"/></radialGradient>
+  <radialGradient id="lemon" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#fff6a1"/><stop offset=".5" stop-color="#ffd52f"/><stop offset="1" stop-color="#d99405"/></radialGradient>
+  <linearGradient id="pistil" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffcf55"/><stop offset=".55" stop-color="#f18b19"/><stop offset="1" stop-color="#b84a08"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<rect width="1200" height="900" rx="54" fill="url(#bg)"/>
+<g opacity=".28" filter="url(#soft)"><circle cx="185" cy="170" r="115" fill="#ffd52f"/><circle cx="1020" cy="220" r="150" fill="#ff7a18"/></g>
+<!-- citrus accents -->
+<g transform="translate(150 570)"><circle r="150" fill="url(#lemon)" stroke="#fff07b" stroke-width="8"/><circle r="105" fill="none" stroke="#fff5a4" stroke-width="8"/><path d="M0-105V105M-105 0H105M-74-74L74 74M74-74L-74 74" stroke="#fff5a4" stroke-width="7"/><circle r="18" fill="#fff5a4"/></g>
+<g transform="translate(1030 570)"><circle r="145" fill="url(#lemon)" stroke="#fff07b" stroke-width="8"/><circle r="100" fill="none" stroke="#fff5a4" stroke-width="8"/><path d="M0-100V100M-100 0H100M-71-71L71 71M71-71L-71 71" stroke="#fff5a4" stroke-width="7"/><circle r="17" fill="#fff5a4"/></g>
+<!-- flower silhouette -->
+<path d="M600 790 C510 760 465 680 478 610 C430 570 450 500 500 475 C476 410 515 350 570 350 C565 285 625 250 670 290 C720 275 765 325 742 375 C800 400 808 468 765 505 C800 560 775 620 725 640 C730 710 680 770 600 790Z" fill="url(#bud)" stroke="#b6d86c" stroke-width="8"/>
+<!-- bud lobes -->
+<g fill="url(#bud)" stroke="#a8d05b" stroke-width="6">
+ <ellipse cx="540" cy="450" rx="90" ry="125" transform="rotate(-25 540 450)"/>
+ <ellipse cx="650" cy="420" rx="105" ry="145" transform="rotate(18 650 420)"/>
+ <ellipse cx="735" cy="500" rx="82" ry="125" transform="rotate(28 735 500)"/>
+ <ellipse cx="525" cy="575" rx="90" ry="135" transform="rotate(-18 525 575)"/>
+ <ellipse cx="635" cy="575" rx="110" ry="155" transform="rotate(8 635 575)"/>
+ <ellipse cx="700" cy="650" rx="82" ry="120" transform="rotate(22 700 650)"/>
+</g>
+<!-- frosty trichome highlights -->
+<g fill="#eff8bd" opacity=".88">
+ <circle cx="520" cy="430" r="7"/><circle cx="555" cy="390" r="6"/><circle cx="590" cy="455" r="8"/><circle cx="625" cy="370" r="7"/><circle cx="670" cy="405" r="6"/><circle cx="705" cy="455" r="8"/><circle cx="745" cy="520" r="7"/><circle cx="500" cy="540" r="6"/><circle cx="550" cy="570" r="8"/><circle cx="600" cy="520" r="7"/><circle cx="650" cy="560" r="9"/><circle cx="690" cy="610" r="7"/><circle cx="610" cy="650" r="8"/><circle cx="555" cy="650" r="6"/>
+</g>
+<!-- orange pistils -->
+<g fill="none" stroke="url(#pistil)" stroke-width="9" stroke-linecap="round" opacity=".95">
+ <path d="M500 475 Q445 425 455 375"/><path d="M545 420 Q515 350 540 310"/><path d="M605 450 Q590 365 620 315"/><path d="M675 475 Q720 390 760 365"/><path d="M715 540 Q785 500 810 450"/><path d="M565 560 Q500 520 470 480"/><path d="M625 600 Q590 530 605 470"/><path d="M680 650 Q735 590 755 540"/>
+</g>
+<!-- Canna Social accent star -->
+<g transform="translate(600 120)" filter="url(#glow)"><path d="M0-42 L12-12 L43 0 L12 12 L0 43 L-12 12 L-43 0 L-12-12 Z" fill="#ff8a16"/><path d="M0-27 L8-8 L27 0 L8 8 L0 27 L-8 8 L-27 0 L-8-8 Z" fill="#fff"/></g>
+</svg>
