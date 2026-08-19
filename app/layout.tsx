@@ -58,11 +58,5 @@ import AgeGate from '@/components/age-gate'
 import DeferredSiteFeatures from '@/components/deferred-site-features'
 import DeferredGlobalFeatures from '@/components/deferred-global-features'
 
-export const metadata: Metadata = {
-  title: 'Canna Social — The People’s Cannabis Platform',
-  description: 'Discover, vote, review, and connect around cannabis culture and strain knowledge.'
-}
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<DeferredSiteFeatures /><DeferredGlobalFeatures /><AgeGate /></body></html>
-}
+export const metadata: Metadata = { title: 'Canna Social — The People’s Cannabis Platform', description: 'Discover, vote, review, and connect around cannabis culture and strain knowledge.' }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<DeferredSiteFeatures /><DeferredGlobalFeatures /><AgeGate /></body></html> }
