@@ -1,0 +1,10 @@
+/* Canna Social premium stability layer: prevent mobile Safari/Chromium blanking and scroll jank. */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+.live-votes,.strain-vote-card,.gibbys-live-vote-shell,.gibbys-live-vote-card,.gibbys-live-art,.strain-art{content-visibility:visible!important;contain:none!important}
+.strain-vote-card,.gibbys-live-vote-card{transform:none!important;backface-visibility:visible!important}
+.strain-art img,.gibbys-live-art img{will-change:auto!important;transform:none!important;filter:none!important}
+.gibbys-live-art{aspect-ratio:4/3;min-height:0!important;overflow:hidden}
+.gibbys-live-art img{width:100%!important;height:100%!important;min-height:0!important;aspect-ratio:4/3!important;object-fit:cover!important;object-position:center!important;image-rendering:auto!important}
+@media(max-width:760px){.gibbys-live-vote-shell{width:calc(100% - 24px);margin:18px auto}.gibbys-live-art{max-height:300px}.gibbys-live-info{padding:20px!important}.gibbys-live-info h2{font-size:clamp(30px,9vw,44px)!important}.gibbys-actions{margin-top:18px!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
