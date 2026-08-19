@@ -11,35 +11,52 @@ export default function DeferredSiteFeatures() {
 
   useEffect(() => {
     let cancelled = false
-    let timers: number[] = []
+    let timer = 0
+    let scrolling = false
+    let scrollStop = 0
 
-    const start = () => {
-      if (cancelled) return
-      // Let the homepage paint and become interactive before requesting the
-      // large voting/library chunks. This is especially important on desktop
-      // browsers where the large strain dataset can otherwise compete with the
-      // first render and scrolling.
-      setStage(1)
-      timers.push(window.setTimeout(() => !cancelled && setStage(2), 900))
-      timers.push(window.setTimeout(() => !cancelled && setStage(3), 1800))
+    const schedule = () => {
+      window.clearTimeout(timer)
+      if (cancelled || scrolling) return
+      timer = window.setTimeout(() => {
+        if (!cancelled && !scrolling) setStage(1)
+      }, 2600)
     }
 
-    if ('requestIdleCallback' in window) {
-      const id = window.requestIdleCallback(start, { timeout: 2200 })
-      return () => {
-        cancelled = true
-        window.cancelIdleCallback?.(id)
-        timers.forEach(window.clearTimeout)
-      }
+    const onScroll = () => {
+      scrolling = true
+      window.clearTimeout(scrollStop)
+      scrollStop = window.setTimeout(() => {
+        scrolling = false
+        schedule()
+      }, 900)
     }
 
-    const timer = window.setTimeout(start, 1200)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    const start = () => schedule()
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, { once: true })
+
     return () => {
       cancelled = true
       window.clearTimeout(timer)
-      timers.forEach(window.clearTimeout)
+      window.clearTimeout(scrollStop)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('load', start)
     }
   }, [])
+
+  useEffect(() => {
+    if (stage !== 1) return
+    const t = window.setTimeout(() => setStage(2), 700)
+    return () => window.clearTimeout(t)
+  }, [stage])
+
+  useEffect(() => {
+    if (stage !== 2) return
+    const t = window.setTimeout(() => setStage(3), 1400)
+    return () => window.clearTimeout(t)
+  }, [stage])
 
   return (
     <Suspense fallback={null}>
