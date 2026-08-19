@@ -48,15 +48,15 @@ export default function SiteNavigation() {
   const nav = (kind: 'home' | 'vote' | 'strains' | 'reviews') => { setOpen(false); scrollToTarget(kind) }
 
   return <header className="canna-site-nav" aria-label="Canna Social main navigation">
-    <a className="canna-nav-brand" href="/" aria-label="Canna Social home" onClick={() => nav('home')}>
+    <button className="canna-nav-brand" type="button" aria-label="Canna Social home" onClick={() => nav('home')}>
       <span className="canna-nav-star">✦</span><span><b>CANNA</b><strong>SOCIAL</strong></span>
-    </a>
+    </button>
     <nav className={`canna-nav-links ${open ? 'is-open' : ''}`} aria-label="Primary">
-      <button onClick={() => nav('home')}>Home</button>
-      <button onClick={() => nav('vote')}>Live Vote</button>
-      <button onClick={() => nav('strains')}>Strain Library</button>
-      <button onClick={goMaps}>Maps</button>
-      <button onClick={() => nav('reviews')}>Reviews</button>
+      <button type="button" onClick={() => nav('home')}>Home</button>
+      <button type="button" onClick={() => nav('vote')}>Live Vote</button>
+      <button type="button" onClick={() => nav('strains')}>Strain Library</button>
+      <button type="button" onClick={goMaps}>Maps</button>
+      <button type="button" onClick={() => nav('reviews')}>Reviews</button>
     </nav>
     <div className="canna-nav-search">
       <input value={search} onChange={e => setSearch(e.target.value)} onKeyDown={e => e.key === 'Enter' && submitSearch()} placeholder="Search strains…" aria-label="Search strains" />
