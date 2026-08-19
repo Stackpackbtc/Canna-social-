@@ -52,14 +52,9 @@ import './site-navigation.css'
 import './canna-social-total-upgrade.css'
 import CannaBranding from '@/components/canna-branding'
 import SiteNavigation from '@/components/site-navigation'
-import CannaSocialCard from '@/components/canna-social-card'
-import CommunityReviews from '@/components/community-reviews'
-import CannaMascot from '@/components/canna-mascot'
-import CannaEducation from '@/components/canna-education'
-import CannaSocialMaps from '@/components/canna-social-maps'
-import ThemeToggle from '@/components/theme-toggle'
 import AgeGate from '@/components/age-gate'
 import DeferredSiteFeatures from '@/components/deferred-site-features'
+import DeferredGlobalFeatures from '@/components/deferred-global-features'
 
 export const metadata: Metadata = {
   title: 'Canna Social — The People’s Cannabis Platform',
@@ -67,5 +62,5 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<DeferredSiteFeatures /><CannaEducation /><CannaSocialCard /><CommunityReviews /><CannaMascot /><CannaSocialMaps /><ThemeToggle /><AgeGate /></body></html>
+  return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<DeferredSiteFeatures /><DeferredGlobalFeatures /><AgeGate /></body></html>
 }
