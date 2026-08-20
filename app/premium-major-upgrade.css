@@ -43,8 +43,18 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;bac
 .modal-backdrop{background:rgba(2,3,2,.76)!important;backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important}.modal{background:linear-gradient(145deg,#151915,#0b0d0b)!important;border:1px solid rgba(255,255,255,.11)!important;box-shadow:0 40px 110px rgba(0,0,0,.65),0 0 60px rgba(255,63,122,.08)!important;border-radius:24px!important}
 input,select,textarea{background:rgba(255,255,255,.035)!important;border-color:var(--cs-line)!important;transition:border-color .2s,box-shadow .2s,background .2s}input:focus,select:focus,textarea:focus{border-color:rgba(255,63,122,.55)!important;box-shadow:0 0 0 4px rgba(255,63,122,.07)!important;background:rgba(255,255,255,.05)!important}
 .gate{background:radial-gradient(circle at 50% 32%,rgba(255,63,122,.16),transparent 35%),radial-gradient(circle at 50% 70%,rgba(255,134,24,.08),transparent 42%),#070908}.gate-card{border-color:rgba(255,255,255,.1);background:linear-gradient(145deg,rgba(17,20,17,.88),rgba(8,10,8,.96));box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 60px rgba(255,63,122,.08);backdrop-filter:blur(20px)}
-/* Generic surfaces used by sub-pages */
 main>.shell>section,.directory,.community-panel,.brand-grid,.map-shell,.education-card,.feed-card{border-color:var(--cs-line)}
 @media(max-width:850px){.shell{width:min(100% - 28px,1240px)}.nav{height:66px}.hero{min-height:auto;padding:72px 0 60px}.hero h1,.page-title{font-size:clamp(50px,15vw,82px)}.hero-copy{font-size:16px}.section{padding:72px 0}.vote-zone{padding:78px 0}.card-banner{grid-template-columns:1fr!important;padding:54px 24px!important;border-radius:22px}.footer{margin-top:50px}.review-card:hover,.strain-card:hover,.poll:hover,.feed-panel:hover{transform:none}}
 @media(max-width:520px){.shell{width:calc(100% - 24px)}.nav-links a{padding:8px 8px;font-size:8px}.nav-links .brands-nav-link{padding:9px 10px!important}.hero{padding-top:55px}.hero-actions{display:grid;grid-template-columns:1fr}.hero-actions button{width:100%}.hero-orb{width:245px}.section-head{align-items:flex-start;gap:16px}.section h2,.learn h2{font-size:36px}.category-tabs{margin-inline:-2px}.card-banner{margin-inline:0}.social-card-3d{max-width:100%}.modal{width:calc(100% - 24px)!important}.ticker{gap:28px}.footer-note{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* PREMIUM V2 — unmistakable finishing layer */
+:root{--cs-glass:rgba(255,255,255,.045);--cs-border:rgba(255,255,255,.12)}
+body{background-color:#070908!important}
+.nav,.ticker,.category-tabs,.card-banner,.gate-card,.modal{border-color:var(--cs-border)!important}
+.nav{box-shadow:0 14px 55px rgba(0,0,0,.38),0 1px 0 rgba(255,255,255,.035)!important}
+.review-card,.strain-card,.poll,.feed-panel,.directory>*,.community-panel,.brand-grid,.map-shell,.education-card,.feed-card{background:linear-gradient(145deg,rgba(25,29,24,.9),rgba(7,10,8,.96))!important;border:1px solid var(--cs-border)!important;box-shadow:0 24px 65px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.035)!important}
+.review-card:hover,.strain-card:hover,.poll:hover,.feed-panel:hover{border-color:rgba(255,63,122,.42)!important;box-shadow:0 30px 80px rgba(0,0,0,.42),0 0 38px rgba(255,63,122,.08)!important}
+.primary,.vote-btn,.nav-links .brands-nav-link,.category-tabs button.selected{background:var(--cs-gradient)!important}
+.page-title,.hero h1{letter-spacing:-.045em!important}
+@media(max-width:520px){.nav{backdrop-filter:blur(18px) saturate(135%);-webkit-backdrop-filter:blur(18px) saturate(135%)}}
