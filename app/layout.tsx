@@ -43,7 +43,6 @@ import './canna-social-maps-futuristic.css'
 import './canna-social-maps-floating-fix.css'
 import './live-vote-cards-premium.css'
 import './live-voter-motion.css'
-import './gibbys-live-vote.css'
 import './scroll-performance-fix.css'
 import './strain-library-desktop-final-lock.css'
 import './performance-and-card-fix.css'
@@ -56,8 +55,10 @@ import './premium-major-upgrade.css'
 import CannaBranding from '@/components/canna-branding'
 import SiteNavigation from '@/components/site-navigation'
 import AgeGate from '@/components/age-gate'
-import DeferredSiteFeatures from '@/components/deferred-site-features'
-import DeferredGlobalFeatures from '@/components/deferred-global-features'
+import AgeGatedContent from '@/components/age-gated-content'
 
 export const metadata: Metadata = { title: 'Canna Social — The People’s Cannabis Platform', description: 'Discover, vote, review, and connect around cannabis culture and strain knowledge.' }
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<DeferredSiteFeatures /><DeferredGlobalFeatures /><AgeGate /></body></html> }
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body><CannaBranding /><SiteNavigation />{children}<AgeGatedContent /><AgeGate /></body></html>
+}
