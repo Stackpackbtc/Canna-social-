@@ -1,0 +1,6 @@
+/* Stability guardrails: primary content remains visible immediately. */
+html { background: #050606; }
+body { min-height: 100vh; }
+img, video { max-width: 100%; }
+.canna-maps-launcher, .canna-site-nav, .gibbys-live-vote-shell { contain: layout paint; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; } }
