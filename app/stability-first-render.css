@@ -1,0 +1,21 @@
+/* Stability guardrails: keep the primary experience visible immediately and avoid
+   layout/paint stalls from optional motion or media. */
+html { background: #050606; }
+body { min-height: 100vh; }
+
+/* Reserve space for media instead of collapsing/reflowing while assets load. */
+img, video { max-width: 100%; }
+
+/* Optional decorative motion must never block interaction or create a huge paint cost. */
+.canna-maps-launcher,
+.canna-site-nav,
+.gibbys-live-vote-shell { contain: layout paint; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
