@@ -2,26 +2,41 @@
 
 import { useEffect, useState } from 'react'
 
+const AGE_KEY = 'canna-social-age-confirmed'
+
 export default function AgeGate(){
-  const [mode,setMode]=useState<'gate'|'loading'|'done'>('gate')
+  const [mode,setMode]=useState<'checking'|'gate'|'loading'|'done'>('checking')
   const [progress,setProgress]=useState(0)
   const [message,setMessage]=useState('WELCOME TO CANNA SOCIAL')
+
+  useEffect(()=>{
+    try {
+      if (window.localStorage.getItem(AGE_KEY) === '21+') setMode('done')
+      else setMode('gate')
+    } catch {
+      setMode('gate')
+    }
+  },[])
 
   useEffect(()=>{
     if(mode!=='loading') return
     const messages=['WELCOME TO CANNA SOCIAL','PREPARING LIVE VOTES','PREPARING STRAIN LIBRARY','ENTERING CANNA SOCIAL']
     const started=Date.now()
-    const duration=850
+    const duration=650
     const timer=window.setInterval(()=>{
       const pct=Math.min(100,Math.round(((Date.now()-started)/duration)*100))
       setProgress(pct)
       setMessage(messages[Math.min(messages.length-1,Math.floor(pct/26))])
-      if(pct>=100){window.clearInterval(timer);window.setTimeout(()=>setMode('done'),80)}
+      if(pct>=100){
+        window.clearInterval(timer)
+        try { window.localStorage.setItem(AGE_KEY,'21+') } catch {}
+        setMode('done')
+      }
     },40)
     return()=>window.clearInterval(timer)
   },[mode])
 
-  if(mode==='done') return null
+  if(mode==='checking'||mode==='done') return null
 
   return <div className={`entry-screen ${mode}`} role="dialog" aria-modal="true">
     {mode==='gate' ? <div className="entry-card">
@@ -31,7 +46,7 @@ export default function AgeGate(){
       <div className="entry-age">21+</div>
       <h2>WELCOME TO THE COMMUNITY</h2>
       <p>You must be 21 or older to enter Canna Social.</p>
-      <button onClick={()=>setMode('loading')}>I'M 21+ — ENTER</button>
+      <button type="button" onClick={()=>setMode('loading')}>I'M 21+ — ENTER</button>
       <small>By entering, you confirm you are of legal age in your location.</small>
     </div> : <div className="loading-cinematic">
       <div className="loading-stars"><i/><i/><i/><i/><i/></div>
