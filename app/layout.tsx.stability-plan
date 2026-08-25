@@ -1,0 +1,1 @@
+The stability fix is intentionally scoped to first-render behavior: preserve the live voter feed, Strain Library, Maps, reviews and navigation while removing deferred mounting from the root tree.
