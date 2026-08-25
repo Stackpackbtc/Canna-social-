@@ -1,0 +1,1 @@
+Temporary note: stability-first branch is being prepared from the current main tree. The final layout change should preserve all existing CSS imports and replace deferred feature wrappers with the single InstantSiteFeatures tree.
