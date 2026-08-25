@@ -10,12 +10,8 @@ export default function AgeGate(){
   const [message,setMessage]=useState('WELCOME TO CANNA SOCIAL')
 
   useEffect(()=>{
-    try {
-      if (window.localStorage.getItem(AGE_KEY) === '21+') setMode('done')
-      else setMode('gate')
-    } catch {
-      setMode('gate')
-    }
+    try { setMode(window.localStorage.getItem(AGE_KEY)==='21+' ? 'done' : 'gate') }
+    catch { setMode('gate') }
   },[])
 
   useEffect(()=>{
@@ -30,6 +26,7 @@ export default function AgeGate(){
       if(pct>=100){
         window.clearInterval(timer)
         try { window.localStorage.setItem(AGE_KEY,'21+') } catch {}
+        window.dispatchEvent(new Event('canna-social-age-confirmed'))
         setMode('done')
       }
     },40)
