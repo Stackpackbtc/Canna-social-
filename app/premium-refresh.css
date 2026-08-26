@@ -1,0 +1,12 @@
+/* CANNA SOCIAL — PREMIUM REFRESH / SAFE OVERRIDE LAYER */
+:root{--cs-glow:rgba(255,63,122,.16);--cs-glow-orange:rgba(255,134,24,.12)}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,a{ -webkit-tap-highlight-color:transparent }
+button:focus-visible,a:focus-visible{outline:2px solid rgba(255,134,24,.85);outline-offset:3px}
+.hero,.section,.vote-zone{isolation:isolate}
+.hero:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(420px 220px at 15% 8%,var(--cs-glow-orange),transparent 72%),radial-gradient(520px 280px at 88% 38%,var(--cs-glow),transparent 72%);opacity:.7}
+.primary,.vote-btn{will-change:transform}
+.review-card,.strain-card,.poll,.feed-panel,.education-card,.feed-card{contain:paint}
+@media(max-width:700px){body{font-size:15px}.hero:before{opacity:.45}.primary,.vote-btn{min-height:46px}.review-card,.strain-card,.poll,.feed-panel,.education-card,.feed-card{box-shadow:0 16px 42px rgba(0,0,0,.28)!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero:before{display:none}}
