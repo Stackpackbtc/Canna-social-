@@ -1,0 +1,14 @@
+/* Canna Social — visual refresh layer */
+:root{--cs-bg:#070907;--cs-orange:#ff7a18;--cs-pink:#ff3975}
+html{background:var(--cs-bg)}
+body{background:radial-gradient(900px 500px at 15% -10%,rgba(255,122,24,.08),transparent 60%),radial-gradient(900px 500px at 90% 5%,rgba(255,57,117,.08),transparent 58%),var(--cs-bg)}
+.nav{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(7,9,7,.84);border-bottom-color:rgba(255,255,255,.07);box-shadow:0 12px 35px rgba(0,0,0,.18)}
+.nav-links a{transition:transform .2s ease,background .2s ease,color .2s ease}.nav-links a:hover{transform:translateY(-1px)}
+.primary,.vote-btn{box-shadow:0 12px 32px rgba(255,57,117,.16),inset 0 1px rgba(255,255,255,.16);transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}.primary:hover,.vote-btn:hover{transform:translateY(-2px);filter:saturate(1.08);box-shadow:0 16px 38px rgba(255,57,117,.23),inset 0 1px rgba(255,255,255,.2)}
+.ghost,.wide-ghost{background:rgba(20,24,19,.76);border-color:rgba(255,255,255,.09);transition:transform .2s ease,border-color .2s ease,background .2s ease}.ghost:hover,.wide-ghost:hover{transform:translateY(-1px);border-color:rgba(255,122,24,.35);background:rgba(27,31,24,.92)}
+.strain-card,.poll,.feed-panel{background:linear-gradient(90deg,rgba(255,122,24,.28),rgba(255,57,117,.18)) top/100% 1px no-repeat,linear-gradient(180deg,rgba(20,24,19,.9),rgba(12,15,12,.92));border-color:rgba(255,255,255,.075);box-shadow:0 18px 50px rgba(0,0,0,.18);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}.strain-card:hover,.poll:hover,.feed-panel:hover{transform:translateY(-3px);border-color:rgba(255,122,24,.25);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.poll-option{transition:transform .18s ease,border-color .18s ease,background .18s ease}.poll-option:hover{transform:translateX(2px);background:rgba(255,57,117,.06)}
+.search-row input{transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}.search-row input:focus{border-color:rgba(255,122,24,.5);background:#151915;box-shadow:0 0 0 4px rgba(255,122,24,.08)}
+.section{scroll-margin-top:84px}
+@media (max-width:850px){.shell{width:min(100% - 24px,1240px)}.hero{min-height:auto;padding:78px 0 58px}.hero h1,.page-title{font-size:clamp(48px,15vw,82px)}.section{padding:58px 0}.strain-card:hover,.poll:hover,.feed-panel:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
